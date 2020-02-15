@@ -1,0 +1,551 @@
+use of * and ** is that it unpack the list and dictionary respectively 
+eg:
+def n(a,b):
+	print a,b
+
+values=[1,2]
+n(*values)
+1 2
+--------------------
+also 
+values={"a":2,"b":3}
+>>> n(**values)
+2 3
+--------------------
+taking input from multiple lines
+a,b,c,d = (int(input()) for _ in range(4))
+print (pow(a,b)+pow(c,d))
+
+---------------------
+my_gun = "ak47"F
+print my_gun.swapcase()
+Ouput--> AK47
+---------------------
+isinstance(vertex,Vertex)
+--------------------
+
+#implementation of undirected graph using Adjency lists
+#vertex1=Vertex('A')
+#vertex1.name='A'
+#vertex1.neighbours=list()
+#vertex1.addneighbours('B')
+#vertex1={name:'A',neighbours:['B','B']}
+#vertices={'A':vertex1,'B':vertex2}
+class Vertex:  
+    def __init__(self,n):#here we are passing name  like 'A'
+        self.name=n
+        self.neighbours=list()
+    def add_neighbour(self,v):
+        if v not in self.neighbours:
+            self.neighbours.append(v)
+            self.neighbours.sort()
+class Graph:
+    vertices={}
+    def add_vertex(self,vertex):#here we are passing object of Vertexes like vertex1
+        if isinstance(vertex,Vertex) and vertex.name not in self.vertices:
+            self.vertices[vertex.name]=vertex#inserting 'A':vertex1
+            return True
+        else:
+            return False
+    def add_edge(self,u,v): #here we are passsing 'A','B'
+        if u in self.vertices and v in self.vertices:#checking availability of both edges
+            self.vertices[u].add_neighbour(v)
+            self.vertices[v].add_neighbour(u)
+            return True#edge added successfully
+        else:
+            return False#or show message that no node is available to make edge
+    def print_graph(self):
+         for key in sorted(list(self.vertices.keys())):
+             print key+"->"+str(self.vertices[key].neighbours)
+graph=Graph()
+#following is static methood
+"""graph.print_graph()
+vertex1=Vertex('1')
+vertex2=Vertex('2')
+vertex3=Vertex('3')
+vertex4=Vertex('4')
+vertex5=Vertex('5')
+graph.add_vertex(vertex1)
+graph.add_vertex(vertex2)
+graph.add_vertex(vertex3)
+graph.add_vertex(vertex4)
+graph.add_vertex(vertex5)
+graph.add_edge('1','2')
+graph.add_edge('1','3')
+graph.add_edge('3','4')
+graph.print_graph()"""
+for i in range(ord('A'),ord('K')):
+    graph.add_vertex(Vertex(chr(i)))
+edges=['AB','AE','BF','CG','DE','DH','EH','FG','FI','FJ','GJ','HI']
+for i in edges:
+    graph.add_edge(i[0],i[1])
+graph.print_graph()    
+------------------------------------------------------------------------------------------------------------------
+#implementation of an undirected graph using adjency matrix,with weight or unweigthted
+#vertex1=Vertex('A')
+class Vertex: 
+    def __init__(self,n): #Vertex('A')
+        self.name=n
+class Graph:
+    vertices={}
+    matrix=[]#this is actually adjacency matrix which will be updated on every vertex insertion row and colum will update
+    edge_indices={}
+    index_edge={}
+
+    def add_vertex(self,vertex):#here we are passing object like vertex1
+        if isinstance(vertex,Vertex) and vertex.name not in self.vertices:
+            self.vertices[vertex.name]=vertex
+            for row in  self.matrix:
+                row.append(0) #adding extra 0 for new vertex in every row adding col
+            self.matrix.append([0]*(len(self.matrix)+1))  #adding row  
+            self.edge_indices[vertex.name]=len(self.matrix)-1
+            self.index_edge[len(self.matrix)-1]=vertex.name
+            return True
+        else:
+            return False
+    def add_edge(self,u,v,weight=1):#add_edge('A','B',3) here 1 is default weight
+        if u in self.vertices and v in self.vertices:
+            self.matrix[self.edge_indices[u]][self.edge_indices[v]]=weight #since it is undirected graph we need to give weight at both positions
+            self.matrix[self.edge_indices[u]][self.edge_indices[v]]=weight #in directed we omit this
+            return True
+        else:
+            return False
+    def print_graph(self):
+        
+        for v,i in sorted(self.edge_indices.items()):
+            print v+"->",
+            for j in range(len(self.matrix)):
+                print "( "+str(self.matrix[i][j])+" ) "+ self.index_edge[j]+"->",
+                   
+            print
+graph=Graph()            
+for i in range(ord('A'),ord('K')):
+    graph.add_vertex(Vertex(chr(i)))
+edges=['AB','AE','BF','CG','DE','DH','EH','FG','FI','FJ','GJ','HI']
+
+for i in edges:
+    graph.add_edge(i[0],i[1])
+graph.print_graph()            
+-------------------------------------------------------------------------------------------------------------------
+my first graph question
+-------------------------
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+class Vertex:
+    def __init__(self,n):
+        self.name=n
+        self.neighbours=list()
+    def add_neighbour(self,v):
+        self.neighbours.append(v)
+        
+class Graph:
+    vertices={}
+    def add_vertex(self,vertex):
+        if isinstance(vertex,Vertex) and vertex not in self.vertices:
+            self.vertices[vertex.name]=vertex
+            return True
+        else:
+            return False
+    def add_edge(self,u,v):
+        if u in self.vertices and v in self.vertices :
+            self.vertices[u].add_neighbour(v)
+            self.vertices[v].add_neighbour(u)
+    def print_graph(self):
+        for v,n in sorted(self.vertices.items()):
+            print v,"->",n.neighbours
+
+
+# Complete the bfs function below.
+def initialise(n,m,edges):
+    graph=Graph()
+    for i in range(1,n+1):
+        graph.add_vertex(Vertex(i))
+    for i in edges:
+        graph.add_edge(i[0],i[1])
+    
+    graph1={}
+    for i in graph.vertices:
+        graph1[i]=graph.vertices[i].neighbours
+    return graph1
+
+def bfs(n, m, edges, s):
+    graph=initialise(n,m,edges)
+    #print graph
+    queue=[]
+    queue.append(s)
+    visited={s:0}
+    
+    while queue!=[]:
+        node=queue[0]
+        queue.pop(0)
+        for i in graph[node]:
+            if (visited.get(i,0)==0):
+                visited[i]=visited[node]+1
+                queue.append(i)
+    
+    del visited[s]
+    result=[]
+    for i in range(1,n+1):
+        if(i==s):
+            continue
+        if(visited.get(i,0)==0):
+            result.append(-1)
+        else:
+            result.append(visited[i]*6)
+    return result                       
+
+
+            
+
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(raw_input())
+
+    for q_itr in xrange(q):
+        
+        nm = raw_input().split()
+
+        n = int(nm[0])
+
+        m = int(nm[1])
+
+        edges = []
+
+        for _ in xrange(m):
+            edges.append(map(int, raw_input().rstrip().split()))
+        
+        s = int(raw_input())
+
+        result = bfs(n, m, edges, s)
+
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
+
+    fptr.close()
+
+-----------------------------------------------------------------
+from fractions import gcd
+>>> gcd(20,8)
+4
+from collections import defaultdict, deque
+
+ Dijkstra’s algorithm doesn’t work for graphs with negative weight edges. For graphs
+ with negative weight edges, Bellman–Ford algorithm can be used, we will soon be discussing it as a separate post.
+ 
+ 
+ -----------sorting a string array in term of int
+ unsorted.sort(key=int)
+ ------------
+ Insertion sort
+ --------------------
+ def insertion_sort(l):
+    for i in xrange(1, len(l)):
+        j = i
+        
+        while (j > 0) and (l[j-1] > l[j]):
+           temp=l[j]
+           l[j]=l[j-1]
+           l[j-1]=temp
+           j-=1
+note->
+In a previous challenge you implemented the Insertion Sort algorithm. It is a simple sorting algorithm that works
+ well with small or mostly sorted data. However, it takes a long time to sort large unsorted data. 
+ To see why, we will analyze its running time.	
+----------------------------------
+count short is used when the array contain some less range of elements
+Counting sort is a sorting technique based on keys between a specific range. It works by counting the number of objects having distinct key 
+values (kind of hashing). Then doing some arithmetic to calculate the position of each object in the output sequence.
+------------------
+power set recursion algo   count no of possible way to expess a number n =xi**p where iE {any positive no}
+def recursion(n,p,x=1):
+    var=int(pow(x,p))
+    if(var>n):
+        return 0
+    if(var==n):
+        return 1
+    else:
+        return recursion(n-var,p,x+1)+recursion(n,p,x+1)      
+
+# Complete the powerSum function below.
+def powerSum(n,p):
+
+    return recursion(n,p,1)
+--------------------------------
+new way-
+for t,x,y in queries:
+        if(t==1):
+--------------------------		
+from collections import Counter 
+  
+# Create a list 
+z = ['blue', 'red', 'blue', 'yellow', 'blue', 'red'] 
+col_count = Counter(z) 
+
+Counter({'blue': 3, 'red': 2, 'yellow': 1})
+
+coun = Counter(a=1, b=2, c=3, d=120, e=1, f=219) 
+  
+# This prints 3 most frequent characters 
+for letter, count in coun.most_common(3):
+f: 219
+d: 120
+c: 3
+
+
+---------anagram-------
+from collections import Counter
+n = int(input())
+for _ in range(n):
+    test = input()
+    length = len(test)
+    if len(test) % 2 != 0:
+        print("-1")
+    else:
+        s1 = Counter(test[:length//2])
+        s2 = Counter(test[length//2:])
+        diff = s1 - s2
+        print(sum(diff.values()))
+or remove character present in left hand side from right hand side and 
+at the end the remaining element in a will be the sol		
+-------------------------------------		
+if(you want the difference of every pair related qus)
+def pairs(a, k)
+    d = {}
+    answer = 0
+    for i in a:
+        d[i] = i
+    for j in a:
+        g = j+k
+        if g in d:
+            answer +=1
+    return answer
+	
+	-------------topological sorting
+	
+class Graph:
+    V=0
+    vertices={}
+    def __init__(self,n):
+        self.V=n
+        for i in range(1,n+1):
+            self.vertices[i]=[]
+
+    def add_edge(self,u,v):
+        self.vertices[u].append(v)
+    def topological(self,v,visited,stack):
+        visited[v]=True
+        if(len(self.vertices[v])==0):
+            stack.append(v)
+            return
+        for i in self.vertices[v]:
+           
+            if visited[i]==False:
+                self.topological(i,visited,stack)
+        stack.insert(0,v)        
+        
+    def topological_sort(self):
+        visited=[False]*(self.V+1)
+        stack=[]
+        for i in range(1,self.V+1):
+           
+            if(visited[i]==False):
+                self.topological(i,visited,stack)
+        return stack        
+ 
+    def print_graph(self):
+        for i in self.vertices:
+            print i,self.vertices[i]
+
+
+
+t,n=map(int,raw_input().split())
+g=Graph(t) 
+for i in range(1,n+1):
+    wish=map(int,raw_input().split())
+    for j in wish[1:]:
+        g.add_edge(i,j)
+
+#g.print_graph()               
+stack=g.topological_sort()
+stack.inser(0,0)
+for i in range(1,t+1):
+    print stack[stack.index(i)-1]
+    
+    
+        
+---------------------------------------
+shifting all zero to the right
+arr = list(map(int,raw_input().split()))
+pos = 0
+for i in range(len(arr)):
+    if arr[i] != 0:
+        arr[i],arr[pos] = arr[pos],arr[i]
+        pos+=1
+print(arr)
+------------------------------------Class and Inherience
+class Parent 
+{ 
+    public: 
+      int id_p; 
+}; 
+   
+// Sub class inheriting from Base Class(Parent) 
+class Child : public Parent 
+{ 
+    public: 
+      int id_c; 
+}; 
+  
+//main function 
+int main()  
+   { 
+       
+        Child obj1; 
+           
+        // An object of class child has all data members 
+        // and member functions of class parent 
+        obj1.id_c = 7; 
+        obj1.id_p = 91; 
+        cout << "Child id is " <<  obj1.id_c << endl; 
+        cout << "Parent id is " <<  obj1.id_p << endl; 
+          
+        return 0; 
+   }  
+   --------------------------------------
+   from collections import deque
+   Qi.popleft()
+-------------Algorithm find max from subset of size k--------
+
+
+from collections import deque
+
+
+def printMax(arr, n, k):
+        q=deque()
+        for i in range(k):
+                while(q and arr[i]>=arr[q[-1]]):
+                        q.pop()
+                q.append(i)
+             
+        for i in range(k,n):
+                print arr[q[0]], 
+                while(q and q[0]<i-k+1):
+                        q.popleft()
+                while(q and arr[i]>=arr[q[-1]]):
+                        q.pop()
+                q.append(i)        
+                        
+        print arr[q[0]]             
+	
+	 
+	
+
+if __name__=="__main__": 
+	arr = [1, 3, 2, 4, 5, 6, 7] 
+	k = 3
+	printMax(arr, len(arr), k) 
+	
+---------------------------------------------------   re error
+import re
+for _ in range(int(input())):  
+    try:
+        print(bool(re.compile(input())))
+    except:
+        print('False')
+		
+		
+----------sort an array of 0,1,2
+#array 2 element(0 1 2  sort array
+#touch flag algo
+a=map(int ,raw_input().split())
+mid=0
+end=len(a)-1
+start=0
+
+while(mid<=end):
+    if(a[mid]==1):
+        mid+=1
+    elif(a[mid]==2):
+        
+        temp=a[mid]
+        a[mid]=a[end]
+        a[end]=temp
+        end-=1
+    else:
+        temp=a[mid]
+        a[mid]=a[start]
+        a[start]=temp
+        start+=1
+        mid+=1
+print a
+-------------------------------------- formatiing text
+from __future__ import division
+print ("{0:.10f}".format(max1/2.0))  	
+
+
+----------------------queue deque in python 
+
+>>> from collections import deque
+>>> d = deque()
+>>> d.append(1)
+>>> print d
+deque([1])
+>>> d.appendleft(2)
+>>> print d
+deque([2, 1])
+>>> d.clear()
+>>> print d
+deque([])
+>>> d.extend('1')
+>>> print d
+deque(['1'])
+>>> d.extendleft('234')
+>>> print d
+deque(['4', '3', '2', '1'])
+>>> d.count('1')
+1
+>>> d.pop()
+'1'
+>>> print d
+deque(['4', '3', '2'])
+>>> d.popleft()
+'4'
+>>> print d
+deque(['3', '2'])
+>>> d.extend('7896')
+>>> print d
+deque(['3', '2', '7', '8', '9', '6'])
+>>> d.remove('2')
+>>> print d
+deque(['3', '7', '8', '9', '6'])
+>>> d.reverse()
+>>> print d
+deque(['6', '9', '8', '7', '3'])
+>>> d.rotate(3)
+>>> print d
+deque(['8', '7', '3', '6', '9']
+
+----sorting 
+>>> data = [('red', 5), ('blue', 1), ('yellow', 8), ('black', 0)]
+>>> data.sort(key=lambda r: r[1])
+
+
+-----binary serch
+import bisect
+index=bisect.bisect_left(a,x,l,r)right position which hase to be consider
+list.insert(index,x)
+	
+bisect.insort_left(a, x, lo=0, hi=len(a))
+Insert x in a in sorted order. This is equivalent to a.insert(bisect.bisect_left(a, x, lo, hi), x) assuming that a is already sorted. Keep in mind that the O(log n) search is dominated by the slow O(n) insertion step.
+
+bisect.insort_right(a, x, lo=0, hi=len(a))
+bisect.insort(a, x, lo=0, hi=len(a))
+Similar to insort_left(), but inserting x in a after any existing entries of x.	
