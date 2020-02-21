@@ -266,4 +266,132 @@ class Solution(object):
         else:
             return False
         
+ Qus 11 :https://leetcode.com/problems/container-with-most-water/submissions/
+Sol :
+class Solution(object):
+    def maxArea(self, A):
+        max1=0
+        
+        l=0
+        r=len(A)-1
+        while(l<r):
+            max1=max(max1,min(A[l],A[r])*(r-l))
+            if(A[l]<A[r]):
+                l+=1
+            elif(A[r]<A[l]):
+                r-=1
+            else:
+                l+=1
+                r-=1
+        return max1
+ 
+ Qus 12: https://leetcode.com/problems/longest-common-prefix/submissions/
+ Sol :
+ class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if(strs==[]):
+            return ''
+        o=''
+        for i in range(min(map(len,strs))):
+            k=strs[0][i]
+            for s in strs:
+                if(s[i]!=k):
+                    return o
+            o=o+k
+        return o
+                
+            
+ Qus 13: https://leetcode.com/problems/merge-two-sorted-lists/submissions/
+ Sol :
+ # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        ptr1=l1
+        ptr2=l2
+        ptr3=ListNode(0)
+        head=ptr3
+        #ptr3.next is null so dont assign head =ptr3.next
+        while(ptr2!=None and ptr1!=None):
+            #print head
+            if(ptr1.val<ptr2.val):
+                ptr3.next=ListNode(ptr1.val)
+                ptr3=ptr3.next
+                ptr1=ptr1.next
+                
+            else:
+                ptr3.next=ListNode(ptr2.val)
+                ptr3=ptr3.next
+                ptr2=ptr2.next
+        #print head
+        if(ptr2!=None):
+            ptr3.next=ptr2
+        if(ptr1!=None):
+            ptr3.next=ptr1
+        return head.next
+Qus:14
+https://leetcode.com/problems/remove-duplicates-from-sorted-array/submissions
+Sol :
+class Solution(object):
+    def removeDuplicates(self, A):
+        if(A==[]):
+            0
+        i=0
+        while(i+1<len(A)):
+            if(A[i]==A[i+1]):
+                del A[i+1]
+            else:
+                i+=1
+        return len(A)
+        
+            
+        
+        
+        
+        
+#         i=0
+#         j=1
+#         while(j<len(A)):
+#             if(A[i]!=A[j]):
+#                 i+=1
+#                 A[i]=A[j]
+#                 j+=1
+                
+#             else:
+#                 j+=1
+#         return i+1
+        
+Qus 15 : https://leetcode.com/problems/move-zeroes/submissions/
+Sol : 
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        i=0
+        j=0
+        while(j<len(nums)):
+            if(nums[j]!=0):
+                nums[i]=nums[j]
+                if(i!=j):
+                    nums[j]=0
+                i+=1
+                
+                
+            
+            j+=1
         
