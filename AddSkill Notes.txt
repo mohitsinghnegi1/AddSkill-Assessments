@@ -3,7 +3,7 @@
 how the source code is built and executed
 o In computing, source code is any collection of code, possibly with comments
 o written using a human-readable programming language, usually as plain text
-o  The source code is often transformed by an assembler or compiler into binary machine code that can be executed by the computer.
+o The source code is often transformed by an assembler or compiler into binary machine code that can be executed by the computer.
 o Assembler transform high level code ie. human readable into low level code  or machine code  line by line . it immediately stops when first error/exception occurs .ex Python
 o Compiler transform high level code to low level code for different machine . It generally takes less time in executing  code . ex java ,C++
 o In Python, the source code is compiled into a much simpler form called bytecode.
@@ -33,7 +33,7 @@ o A new stack frame is created on invocation of new method/function
 o stack frames are destroyed as soon as function \method returns
 o garbage collector is a mechanism to clean up dead object periodically
 
-
+Dutch flag problem
 
 
 

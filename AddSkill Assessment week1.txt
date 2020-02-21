@@ -1,0 +1,269 @@
+Qus 1 : https://leetcode.com/problems/word-pattern/
+
+Solution :
+from collections import OrderedDict
+class Solution(object):
+    def wordPattern(self, pattern, str):
+        """
+        :type pattern: str
+        :type str: str
+        :rtype: bool
+        """
+        #we need to remember two things first is same charter same word 
+        #no two diferent character should have same value
+        d=OrderedDict({})
+        a=str.split(" ")
+        v=set()
+        if len(pattern)==len(a):
+            for j,i in enumerate(pattern):
+                # print j,i
+                if i in d and d[i]!=a[j]:
+                    return False
+                if i not in d:
+                    d[i]=a[j]
+                    if(a[j] not in v):
+                        v.add(a[j])
+                    else:
+                        return False
+            
+            return True
+        else:
+            return False
+		
+		
+Qus 2: https://leetcode.com/problems/contains-duplicate-ii/submissions/
+Sol :
+class Solution(object):
+    def containsNearbyDuplicate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: bool
+        """
+        d={}
+        for i,val in enumerate(nums):
+            if val in d:
+                if(i-d[val]<=k):
+                    return True
+                else:
+                    d[val]=i
+            else:
+                d[val]=i
+            
+
+        return False
+
+
+Qus 3:https://leetcode.com/problems/majority-element/submissions/
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        d={}
+        
+        for i in nums:
+            d[i]=d.get(i,0)+1
+        for i in d:
+            if(d[i]>len(nums)/2):
+                return i
+            
+
+Qus 4:https://leetcode.com/problems/valid-palindrome/
+Sol :
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        s=s.lower()
+        stack=[]
+        for i in s:
+            if(i.isalnum()):
+                stack.append(i)
+        if(stack==stack[::-1]):
+            return True
+        else:
+            return False
+        
+        
+            
+Qus 5: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+SOl :
+import sys
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        profit=0
+        min1=sys.maxsize
+        for i in prices:
+            if(i<min1):
+                min1=i
+            profit=max(profit,i-min1)
+        return profit
+		
+Qus 6 :https://leetcode.com/problems/longest-palindromic-substring/solution/
+sol:expend around the center
+
+
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        def maxlenr(i,s):
+            if(i+1>=len(s)):
+                return s[i]
+            if(s[i+1]!=s[i]):
+                return s[i]
+            o=s[i]+s[i+1] 
+            j=1
+            while(i-j>=0 and i+j+1<len(s) and s[i-j]==s[i+j+1]):
+                o=s[i-j]+o+s[i+j+1]
+                j+=1
+            return o
+                
+        def maxlen(i,s):
+            
+            
+            o=s[i]
+            j=1
+            while(i-j>=0 and i+j<len(s) and s[i-j]==s[i+j]):
+                o=s[i-j]+o+s[i+j]
+                j+=1
+            return o
+        
+        
+        
+        
+        
+        maxstri=''
+        
+        for i in range(len(s)):
+            
+            mm=maxlen(i,s)
+            rm=maxlenr(i,s)
+            # print mm,rm
+            
+            if(len(mm)>len(maxstri)):
+                maxstri=mm
+            if(len(rm)>len(maxstri)):
+                maxstri=rm
+        return maxstri
+
+Qus 7:https://leetcode.com/problems/two-sum/submissions/
+Sol:
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d={}
+        for i in range(len(nums)):
+            if(target-nums[i] in d):
+                return [d[target-nums[i]],i]
+            else:
+                d[nums[i]]=i
+        
+		
+Qus 8:https://leetcode.com/problems/add-two-numbers/submissions/
+Sol :
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        if(l1==None or l2==None):
+            return l1
+        
+        ptr=ListNode(0)
+        head=ptr
+        ptr2=l1
+        ptr3=l2
+        c=0
+        while(True):
+            if(ptr2==None and ptr3==None):
+                break
+            #in case both are None
+            if(ptr2==None):
+                ptr2=ListNode(0)
+            if(ptr3==None):
+                ptr3=ListNode(0)
+            
+            x=(ptr3.val+ptr2.val+c)%10
+            c=(ptr3.val+ptr2.val+c)/10
+            
+            ptr.next=ListNode(x)
+            ptr=ptr.next
+            ptr2=ptr2.next
+            ptr3=ptr3.next
+        if(c!=0):
+            ptr.next=ListNode(c)
+        return head.next
+            
+Qus 9:https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
+Sol 
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        max1=0
+   
+        o=[]
+        for j,i in enumerate(s):
+            if(i not in o):
+                o.append(i)
+                #print o
+                max1=max(max1,len(o))
+            else:
+                
+                o=o[o.index(i)+1:]
+                o.append(i)
+                #whenever append calculate max
+                max1=max(max1,len(o))
+                #print o
+                
+        max1=max(max1,len(o))
+        return max1
+                
+            
+ Qus 10 :https://leetcode.com/problems/palindrome-number/submissions/
+ Sol :
+ class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if(x<0):
+            return False
+        z=x
+        rev=0
+        while(x!=0):
+            rev=rev*10+x%10
+            x=x/10
+        
+        if(rev==z ):
+            return True
+        else:
+            return False
+        
+        

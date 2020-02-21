@@ -1,0 +1,1230 @@
+
+n=int(input())
+n=raw_input()
+[1,2,3,4]
+a=map(int,raw_input().split())
+a=[i for i in raw_input().split()]    
+
+d={name:'mohit'}
+a[1]
+d['name']
+d.keys()
+d.values()
+
+t=(1,2,3,4)#tules are immutable means a new object will be created if you update any index value
+t[2]=3 #it is hashable
+
+
+
+
+
+
+
+x = chr(ord(ch) + 3) #ord will give the char ascii value and chr will provide the character associated with that ascii value
+//replace all occurance of all
+string=string.replace('a','$')
+//finding most occuring character in string 
+import collections
+s=raw_input()
+max1=collections.Counter(s).most_common(1)[0][0]
+//tip:use sort() to find min element instead of max()
+//to copy an list use b=a[:]   
+//to check wheter a string is char or not "c".isalpha() True
+//isupper() "a".islower lower() upper()
+//'a'<'b' True #we can directly compare character
+//"dssd".capitalize() Dssd #it will make first character capital
+//s.find("1233","3") 2   str.find(sub,start,end)
+//a={"mohit":1,"singh":2} a.values() a.keys()
+//a.sort(reverse=True)
+//a.replace(2,1,1) //last is no of time you want to replace string
+//converting array into string " ".join(map(str,a))
+str=u"ndkv"
+>>> str.isnumeric()
+//for _ in range(10):
+	print("h")
+//
+for i in range(len(a)):
+    for j in range(i+1,len(a)+1):
+        find_odd_even(a[i:j])  //susets
+   
+ arr = [1 if int(i) % 2 == 1 else -1 for i in inp.split()]   //get element as we want using if
+(-1 if (0 == 0) else 1) //shortcut for if
+
+
+
+//"mo dkjfjk mo".strip() output:" dkjfjk " 
+
+
+
+--------------
+nt fact(int n) { return n > 1 ? n * fact(n –1) : 1; } ///factorial
+--------------------
+
+------taking infinite input
+while True:
+    try:
+        line = input()
+        print solve(int(line))
+    except:
+        exit()
+=============== no of binary string divisible by 2 after rotation
+n=int(input())
+
+for i in range(n):
+    m=int(input())
+    s=raw_input()
+    count=m-s.count("1")
+    
+    print(count) 
+----------------------sorting string
+m="gvmv"	
+>>> sorted(m)
+['g', 'm', 'v', 'v']
+"".join(sorted(m))//gmvv
+
+---------------
+ a="mohit singh".split() //direct converting into string array
+ 
+ 
+ --------finding gcd in python 2.7
+ import fractions
+>>> fractions.gcd(2,3)
+1
+
+---gcd of 3 no
+>>> reduce(fractions.gcd,(12,2,3)) //reduce() in Python. The reduce(fun,seq) function is used to apply a particular function passed in its argument to all of the list elements mentioned in the sequence passed along.This function is defined in “functools” module. Working : At first step, first two elements of sequence are picked and the result is obtained.
+
+1
+--------lcm of 3 no
+  abc = n//lcm(a,lcm(b,c))
+-------------------dictionary getting key which is not present
+
+dict.get(key[, default])
+1
+dict.get(key[, default])
+If given key exists in dictionary then it returns its value,
+If given key does not exists in dictionary then it returns the passed default value argument.
+If given key does not exists in dictionary and Default value is also not passed in get() function, then get() function will return None.
+-------
+>>> dict(x=3,y=4)
+{'y': 4, 'x': 3}
+
+--------------
+An OrderedDict is a dictionary subclass that remembers the order that keys were first inserted. The only difference between dict() and OrderedDict() is that:
+
+OrderedDict preserves the order in which the keys are inserted. A regular dict doesn’t track the insertion order, and iterating it gives the values in an arbitrary order. By contrast, the order the items are inserted is remembered by OrderedDict.
+
+# A Python program to demonstrate working of OrderedDict 
+ from collections import OrderedDict 
+ 
+ dictionari=OrderedDict()
+ 
+ 
+ ----iterating over 3 list
+ for (a, b, c) in zip(num, color, value): 
+    print a, b, c 
+	 
+	 
+	 
+	 
+		 
+---------------all combinations
+import itertools
+x=itertools.combinations("mohit//iterable any",r)
+	 y=[i for i in x]
+>>> y
+
+[('m', 'f'), ('m', 'm'), ('m', 'g'), ('m', 'f'), ('m', 'g'), ('f', 'm'), ('f', 'g'), ('f', 'f'), ('f', 'g'), ('m', 'g'), ('m', 'f'), ('m', 'g'), ('g', 'f'), ('g', 'g'), ('f', 'g')]
+
+
+//other iterable functions
+
+itertools.cycle("itertools") //itertoolsitertools....
+itertools.combinations_with_replacement()
+itertools.permutations("cc")
+product('ABCD', repeat=2)	 	AA AB AC AD BA BB BC BD CA CB CC CD DA DB DC DD
+
+-----------------joning two list
+c=itertools.chain([1,2,3],[13,66])
+>>> c
+<itertools.chain object at 0x0000000005554828>
+>>> c=list(c)
+>>> c
+[1, 2, 3, 13, 66]
+--------------------return false if all elements are o or [] or false
+any([0,0,0]) false
+any([]) flase
+any([23,2,0]) true
+--------------------set
+
+
+
+
+
+x=set([1,23,4])
+x.add(2)  //set is sorted
+x.remove(2)
+x.defference()
+#!/usr/bin/env python
+x = set(["Postcard", "Radio", "Telegram"])
+y = set(["Radio","Television"])
+print( x.difference(y) )
+print( y.difference(x) )
+
+x = set(["a","b","c","d"])
+y = set(["c","d"])
+print( x.issubset(y) )<b>
+
+x = set(["a","b","c","d"])
+y = set(["c","d"])
+print( x.issuperset(y) )
+
+x = set(["a","b","c","d"])
+y = set(["c","d"])
+print( x.intersection(y) )
+
+-----------last element
+>> s=[7,799,78]
+>>> s[-1]
+78
+
+----------comulative sum
+for i in range(1,n):
+    s.append(i+s[-1])
+
+------initialise dict with -1
+mi = {k:-1 for k in arr}
+conditions to apply binary search is
+1.it should be monotonic
+2.condition to move left right
+
+
+
+-----------------maxsplit
+>>> s = "this is my string"
+>>> s.split(maxsplit=1)
+['this', 'is my string']
+
+-------lambda expression
+
+>>> f = lambda x , y : x + y
+>>> f(1,1)
+2
+
+-----------removing all occurance of an element 
+def remove_values_from_list(the_list, val):
+   return [value for value in the_list if value != val]
+
+x = [1, 2, 3, 4, 2, 2, 3]
+x = remove_values_from_list(x, 2)
+print x
+# [1, 3, 4, 3]
+
+
+-------------sorting adict
+
+mydict = {'carl':40,
+          'alan':2,
+          'bob':1,
+          'danny':3}
+
+for key in sorted(mydict.iterkeys()):
+    print "%s: %s" % (key, mydict[key])
+
+---------------------iteRATION 
+>>> d = {'a': 1, 'b': 2}
+>>> dki = d.iterkeys()
+>>> dki.next()
+'a'
+>>> dki.next()
+'b'
+>>> dki.next()
+Traceback (most recent call last):
+  File "<interactive input>", line 1, in <module>
+StopIteration
+
+
+
+mydict.iterkeys().next()
+'bob'
+
+
+-------------sorting dictionary on the bases of values
+>>>from operator import itemgetter
+sorted(d.items(), key=itemgetter(1))
+
+[('bob', 1), ('alan', 2), ('danny', 3), ('carl', 40)]
+
+---------------------------------
+bisect.bisect_left returns the leftmost place in the sorted list to insert the given element. bisect.bisect_right returns the rightmost place in the
+ sorted list to insert the given element.
+
+An alternative question is when are they equivalent? By answering this, the answer to your question becomes clear.
+
+They are equivalent when the the element to be inserted is not present in the list. Hence, they are not equivalent when the element to be inserted is
+ in the list.
+
+
+import bisect
+bisect.bisect_right(list2,i)
+
+-----------------defining global sum
+global accumulated_sum
+
+-------------
+map(str,a) //conver each element of array to another data type
+
+//set are much faster to use when element are not dublicate in in operation because it uses hash table
+
+
+>> langs = ["haskell", "clojure", "apl"]
+    >>> langs.extend(["scala", "F#"])
+    >>> print(langs)
+    ['haskell', 'clojure', 'apl', 'scala', 'F#']
+	
+	
+-----------
+ # loop over the companies and print both the index as youll as the name.
+    >>> for indx, name in enumerate(companies):
+    ...     print("Index is %s for company: %s" % (indx, name))
+    ...
+    Index is 0 for company: hackerearth
+    Index is 1 for company: google
+    Index is 2 for company: facebook
+----------------------
+list.pop() 
+list.pop(1)
+setA.add(8)
+    >>> print(setA)
+    {1, 2, 3, 4, 5, 6, 7, 8}
+ # pass a list with elements 11 and 12 
+    >>> setA.update([11, 12])
+    >>> # check if setA is updated with the elements.
+    >>> print(setA)
+    {1, 2, 3, 4, 5, 6, 7, 8, 11, 12, (9, 10)}
+>>> # removes element 7 from set
+>>> setA.discard(7)
+>>> print(setA)
+{1, 2, 3, 4, 5, 6, 8, 11, 12, 14, 15, (9, 10), 16}
+
+>>> # removes element 8 from set
+>>> setA.remove(8)
+>>> print(setA)
+{1, 2, 3, 4, 5, 6, 11, 12, 14, 15, (9, 10), 16}
+Both discard and remove take a single argument, the element to be deleted from the set.
+ If the value is not present, discard() does not do anything. Whereas, remove will raise a KeyError exception.	
+	shallow_copy_of_setA = setA.copy()
+>>> print(shallow_copy_of_setA)
+{1, 2, 3, 4, 5, 6, 11, 12, 14, 15, (9, 10), 16}
+Using assignment here instead of copy() will create a pointer to the already existing set.
+
+Python set clear() Will remove all elements from set
+
+>>> # clear the set shallow_copy_of_setA created before using copy() operation
+>>> shallow_copy_of_setA.clear()
+>>> print(shallow_copy_of_setA)
+set()
+Python set pop() Removes an arbitrary set element
+
+>>> # popping an element from setA
+>>> setA.pop()
+1
+>>> # pop raises a KeyError exception if the set is empty
+>>> shallow_copy_of_setA.pop()
+Traceback (most recent call last):
+  File "python", line 1, in <module>
+KeyError: 'pop from an empty set'
+Set Operations
+Set Intersection using intersection(s) Returns element present in both sets; this can also be achieved using the ampersand operator (&).
+
+>>> # create a new set setB
+>>> setB= set()
+
+>>> # update setB with values
+>>> setB.update([1, 2, 3, 4, 5, 10, 15, 22])
+>>> print(setB)
+{1, 2, 3, 4, 5, 10, 15, 22}
+
+>>> # print a new set with the values present in both setA and setB
+>>> print(setA & setB)
+{2, 3, 4, 5, 15}
+
+>>> # above operation and using method name intersection shows same results
+>>> setA.intersection(setB)
+{2, 3, 4, 5, 15}
+Set Difference using difference() Returns the difference of two sets; “-” operator can also be used to find the set difference.
+
+>>> # print a new set with values present in setA but not in setB
+>>> setA.difference(setB)
+{6, 11, 12, 14, (9, 10), 16}
+
+>>> # this returns empty set 
+>>> setB.difference(setA)
+set()
+setB is a proper subset of setA to setB - setA is empty set.
+
+Other Set Operations
+Python set isdisjoint() Returns true if intersection of sets is empty otherwise false
+
+>>> # returns false as both have common elements
+>>> setA.isdisjoint(setB)
+False
+
+>>> # create a new empty set setC
+>>> setC = set()
+>>> # update setC with values
+>>> setC.update([100, 99])
+
+>>> # returns true as setA and setC has no elements in common
+>>> setA.disjoint(setC)
+True
+Python set difference_update() setA.difference_update(setB) removes all elements of y from setA; ‘-=’ can be used in place of the difference_update method.
+
+>>> # update setA by removing elements present in setB from setA
+>>> setA.difference_update(setB)
+>>> # check the result set
+>>> print(setA)
+{6, 11, 12, 14, (9, 10), 16}
+Similarly, setA.intersection_update(setB) removes elements from setA which are not present in the intersection set of setA and setB. ‘&=’ can be used in place of the intersection_update method.
+
+Python set issubset() and issuperset() setA.issubset(setB) returns True if setA is subset of setB, False if not. “<=” operator can be used to test for issubset. To check for proper subset “<” is used.
+>>> # check if setA is a subset of setB
+>>> setA.issubset(setB)
+False
+>>> # check if set B is a subset of setA
+>>> setB.issubset(setA)
+False
+Let’s make setB a subset of setA by removing values 1, 10, and 22.
+    >>> # remove few elements to make setB a subset of setA
+    >>> setB.remove(1)
+    >>> setB.remove(10)
+    >>> setB.remove(22)
+    >>> # check the values present in setB now
+    >>> print(setB)
+    {2, 3, 4, 5, 15}
+    >>> #issubset now returns true
+    >>> setB.issubset(setA)
+    True
+    >>> setB < setA
+    True
+    >>> #setA now becomes a superset of setB
+    >>> setA.issuperset(setB)
+    True
+	
+	
+------------------2d array
+for _ in xrange(3):
+        a.append(map(int, raw_input().rstrip().split()))
+-------------------------no of sub array
+
+for ex A[]={1,2,3} the subarrays are:- {1},{2},{3},{1,2},{2,3},{1,2,3}
+
+(3*(3+1))/2 i.e, 6 non-empty subarrays		
+	
+	
+--------------to check array is sorted or not
+all(l[i] <= l[i+1] for i in xrange(len(l)-1))	
+
+------eucled method of gcd
+def gcd(x, y): 
+  
+   while(y): 
+       x, y = y, x % y 
+  
+   return x
+
+print gcd(12,25)
+
+---------extend the dict
+a.update({3:4})
+----------------2d array
+a = [[0] * m] * n
+
+-----all accourance of same degit
+for i,j in enumerate(mymatrix):
+   for k,l in enumerate(j):
+     if l==1:
+         print i,k
+		 
+		 
+-------------------finding noof perfect squares in between no a<b
+count=(int)(math.floor(math.sqrt(b))- math.ceil(math.sqrt(a)))+1		 
+
+
+This method checks if all the characters of a string are alphanumeric (a-z, A-Z and 0-9).
+>>> print 'ab123'.isalnum()
+True
+>>> print 'ab123#'.isalnum()
+False
+
+This method checks if all the characters of a string are alphabetical (a-z and A-Z).
+>>> print 'abcD'.isalpha()
+True
+>>> print 'abcd1'.isalpha()
+False
+
+This method checks if all the characters of a string are digits (0-9).
+>>> print '1234'.isdigit()
+True
+>>> print '123edsd'.isdigit()
+False
+
+str.islower() 
+This method checks if all the characters of a string are lowercase characters (a-z).
+>>> print 'abcd123#'.islower()
+True
+>>> print 'Abcd123#'.islower()
+False
+
+str.isupper() 
+This method checks if all the characters of a string are uppercase characters (A-Z).
+>>> print 'ABCD123#'.isupper()
+True
+>>> print 'Abcd123#'.isupper()
+False
+
+
+-----------taking name along with array as input
+line = raw_input().split()
+        name, scores = line[0], line[1:]
+		
+		
+---- aligning
+.ljust(width)
+
+This method returns a left aligned string of length width.
+
+>>> width = 20
+>>> print 'HackerRank'.ljust(width,'-')
+HackerRank----------  
+.center(width)
+
+This method returns a centered string of length width.
+
+>>> width = 20
+>>> print 'HackerRank'.center(width,'-')
+-----HackerRank-----
+.rjust(width)
+
+This method returns a right aligned string of length width.
+
+>>> width = 20
+>>> print 'HackerRank'.rjust(width,'-')
+----------HackerRank
+
+
+alpha = string.ascii_lowercase
+>>> alpha
+'abcdefghijklmnopqrstuvwxyz'		
+
+------------lambda is similar to function
+ g=lambda x,y:x+y
+>>> g(2,3)
+5
+>>>
+
+---creatiing a list of n no
+a=list(map(lambda x:x,range(0,10)))
+
+------multipliying two list
+g=list(map(lambda x,y:x*y,[1,2,3,4,5],[1,2,3,4,5]))
+
+a=list(filter(lambda x:x>0,[1,2,1,-3,4,5,-6,7]))
+>>> a
+[1, 2, 1, 4, 5, 7]
+
+
+a=reduce(lambda x,y:max(x,y),[1,2,3,4,2,7,3,4,7])
+>>> a
+7
+
+a=reduce(lambda x,y:x*y,[1,2,3,4,5,7])
+>>> a
+840
+
+
+---new about itertool permutations
+itertools.permutations(iterable[, r])
+
+This tool returns successive  length permutations of elements in an iterable.
+
+If  is not specified or is None, then  defaults to the length of the iterable, and all possible full length permutations are generated.
+
+Permutations are printed in a lexicographic sorted order. So, if the input iterable is sorted, the permutation tuples will be produced in a sorted order.
+
+
+----------
+itertools.combinations_with_replacement(iterable, r) 
+This tool returns  length subsequences of elements from the input iterable allowing individual elements to be repeated more than once.
+
+Combinations are emitted in lexicographic sorted order. So, if the input iterable is sorted, the combination tuples will be produced in sorted order
+
+
+----------------cartition product  --very useful if u want to make combination within 3 or more tuples
+itertools.product()
+
+This tool computes the cartesian product of input iterables. 
+It is equivalent to nested for-loops. 
+For example, product(A, B) returns the same as ((x,y) for x in A for y in B).
+
+Sample Code
+
+>>> from itertools import product
+>>>
+>>> print list(product([1,2,3],repeat = 2))
+[(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
+>>>
+>>> print list(product([1,2,3],[3,4]))
+[(1, 3), (1, 4), (2, 3), (2, 4), (3, 3), (3, 4)]
+>>>
+>>> A = [[1,2,3],[3,4,5]]
+>>> print list(product(*A))
+[(1, 3), (1, 4), (1, 5), (2, 3), (2, 4), (2, 5), (3, 3), (3, 4), (3, 5)]
+>>>
+>>> B = [[1,2,3],[3,4,5],[7,8]]
+>>> print list(product(*B))
+[(1, 3, 7), (1, 3, 8), (1, 4, 7), (1, 4, 8), (1, 5, 7), (1, 5, 8), (2, 3, 7), (2, 3, 8), (2, 4, 7) etc
+
+
+
+-------------groupby
+In this task, we would like for you to appreciate the usefulness of the groupby() function of itertools . To read more about this function, Check this out .
+
+You are given a string . Suppose a character '' occurs consecutively  times in the string. Replace these consecutive occurrences of the character '' with  in the string.
+
+For a better understanding of the problem, check the explanation.
+
+Input Format
+
+A single line of input consisting of the string .
+
+Output Format
+
+A single line of output consisting of the modified string.
+
+Constraints
+
+All the characters of  denote integers between  and .
+
+
+Sample Input
+
+1222311
+Sample Output
+
+(1, 1) (3, 2) (1, 3) (2, 1)
+
+----------------------------index and element
+>> list(enumerate("rank"))
+[(0, 'r'), (1, 'a'), (2, 'n'), (3, 'k')]
+
+
+----set union operator
+>>> s = set("Hacker")
+>>> print s.union("Rank")
+set(['a', 'R', 'c', 'r', 'e', 'H', 'k', 'n'])
+
+>>> print s.union(set(['R', 'a', 'n', 'k']))
+set(['a', 'R', 'c', 'r', 'e', 'H', 'k', 'n'])
+
+>>> print s.union(['R', 'a', 'n', 'k'])
+set(['a', 'R', 'c', 'r', 'e', 'H', 'k', 'n'])
+
+>>> print s.union(enumerate(['R', 'a', 'n', 'k']))
+set(['a', 'c', 'r', 'e', (1, 'a'), (2, 'n'), 'H', 'k', (3, 'k'), (0, 'R')])
+
+>>> print s.union({"Rank":1})
+set(['a', 'c', 'r', 'e', 'H', 'k', 'Rank'])
+
+>>> s | set("Rank")
+set(['a', 'R', 'c', 'r', 'e', 'H', 'k', 'n'])
+
+
+---
+.intersection()
+The .intersection() operator returns the intersection of a set and the set of elements in an iterable.
+Sometimes, the & operator is used in place of the .intersection() operator, but it only operates on the set of elements in set.
+The set is immutable to the .intersection() operation (or & operation).
+------------sorting ordered dict
+d=sorted(d.items(), key=lambda x: x[1])
+
+print divmod(177,10)
+(17, 7)
+
+-----------------collections.Counter()
+collections.Counter() 
+A counter is a container that stores elements as dictionary keys, and their counts are stored as dictionary values.
+
+Sample Code
+
+>>> from collections import Counter
+>>> 
+>>> myList = [1,1,2,3,4,5,3,2,3,4,2,1,2,3]
+>>> print Counter(myList)
+Counter({2: 4, 3: 4, 1: 3, 4: 2, 5: 1})
+>>>
+>>> print Counter(myList).items()
+[(1, 3), (2, 4), (3, 4), (4, 2), (5, 1)]
+>>> 
+>>> print Counter(myList).keys()
+[1, 2, 3, 4, 5]
+>>> 
+>>> print Counter(myList).values()
+[3, 4, 4, 2, 1]
+
+
+
+----pow modified
+It's also possible to calculate .
+
+>>> pow(a,b,m) 
+
+
+
+---exception 
+#Code
+try:
+    print 1/0
+except ZeroDivisionError as e:
+    print "Error Code:",e
+	
+---------------set-------
+>> myset.add((5, 4))
+>> myset
+{'a', 'c', 'b', (5, 4)}
+
+
+---
+>> myset.update([1, 2, 3, 4]) # update() only works for iterable objects
+>> myset
+{'a', 1, 'c', 'b', 4, 2, (5, 4), 3}
+>> myset.update({1, 7, 8})
+>> myset
+{'a', 1, 'c', 'b', 4, 7, 8, 2, (5, 4), 3}
+>> myset.update({1, 6}, [5, 13])
+>> myset
+{'a', 1, 'c', 'b', 4, 5, 6, 7, 8, 2, (5, 4), 13, 3}
+
+----
+Both the discard() and remove() functions take a single value as an argument and removes that value from the set. If that value is not present, discard() does nothing, but remove() will raise a KeyError exception.
+
+>> myset.discard(10)
+>> myset
+{'a', 1, 'c', 'b', 4, 5, 7, 8, 2, 12, (5, 4), 13, 11, 3}
+>> myset.remove(13)
+>> myset
+{'a', 1, 'c', 'b', 4, 5, 7, 8, 2, 12, (5, 4), 11, 3}
+
+-----
+COMMON SET OPERATIONS Using union(), intersection() and difference() functions. 
+
+>> a = {2, 4, 5, 9}
+>> b = {2, 4, 11, 12}
+>> a.union(b) # Values which exist in a or b
+{2, 4, 5, 9, 11, 12}
+>> a.intersection(b) # Values which exist in a and b
+{2, 4}
+>> a.difference(b) # Values which exist in a but not in b
+{9, 5}
+
+----
+The union() and intersection() functions are symmetric methods: 
+
+>> a.union(b) == b.union(a)
+True
+>> a.intersection(b) == b.intersection(a)
+True
+>> a.difference(b) == b.difference(a)
+False
+
+=-------
+.symmetric_difference()
+The .symmetric_difference() operator returns a set with all the elements that are in the set and the iterable but not both.
+Sometimes, a ^ operator is used in place of the .symmetric_difference() tool, but it only operates on the set of elements in set.
+The set is immutable to the .symmetric_difference() operation (or ^ operation).
+
+>>> s = set("Hacker")
+>>> print s.symmetric_difference("Rank")
+set(['c', 'e', 'H', 'n', 'R', 'r'])
+
+>>> print s.symmetric_difference(set(['R', 'a', 'n', 'k']))
+set(['c', 'e', 'H', 'n', 'R', 'r'])
+
+>>> print s.symmetric_difference(['R', 'a', 'n', 'k'])
+set(['c', 'e', 'H', 'n', 'R', 'r'])
+
+>>> print s.symmetric_difference(enumerate(['R', 'a', 'n', 'k']))
+set(['a', 'c', 'e', 'H', (0, 'R'), 'r', (2, 'n'), 'k', (1, 'a'), (3, 'k')])
+
+>>> print s.symmetric_difference({"Rank":1})
+set(['a', 'c', 'e', 'H', 'k', 'Rank', 'r'])
+
+>>> s ^ set("Rank")
+set(['c', 'e', 'H', 'n', 'R', 'r'])
+------------------default dict
+rom collections import defaultdict
+d = defaultdict(list)
+d['python'].append("awesome")
+d['something-else'].append("not relevant")
+d['python'].append("language")
+for i in d.items():
+    print i
+This prints:
+
+('python', ['awesome', 'language'])
+('something-else', ['not relevant'])
+
+
+
+------------
+.update() or |= 
+Update the set by adding elements from an iterable/another set.
+
+>>> H = set("Hacker")
+>>> R = set("Rank")
+>>> H.update(R)
+>>> print H
+set(['a', 'c', 'e', 'H', 'k', 'n', 'r', 'R'])
+.intersection_update() or &=
+Update the set by keeping only the elements found in it and an iterable/another set.
+
+>>> H = set("Hacker")
+>>> R = set("Rank")
+>>> H.intersection_update(R)
+>>> print H
+set(['a', 'k'])
+.difference_update() or -=
+Update the set by removing elements found in an iterable/another set.
+
+>>> H = set("Hacker")
+>>> R = set("Rank")
+>>> H.difference_update(R)
+>>> print H
+set(['c', 'e', 'H', 'r'])
+.symmetric_difference_update() or ^=
+Update the set by only keeping the elements found in either set, but not in both.
+
+>>> H = set("Hacker")
+>>> R = set("Rank")
+>>> H.symmetric_difference_update(R)
+>>> print H
+set(['c', 'e', 'H', 'n', 'r', 'R'])
+
+--------------*argv
+*args
+
+The special syntax *args in function definitions in python is used to pass a variable number of arguments to a function. It is used to pass a non-keyworded, variable-length argument list.
+
+The syntax is to use the symbol * to take in a variable number of arguments; by convention, it is often used with the word args.
+What *args allows you to do is take in more arguments than the number of formal arguments that you previously defined. With *args, any number of extra arguments can be tacked on to your current formal parameters (including zero extra arguments).
+For example : we want to make a multiply function that takes any number of arguments and able to multiply them all together. It can be done using *args.
+Using the *, the variable that we associate with the * becomes an iterable meaning you can do things like iterate over it, run some higher order functions such as map and filter, etc.
+Example for usage of *arg:
+filter_none
+edit
+play_arrow
+
+brightness_4
+# Python program to illustrate   
+# *args for variable number of arguments 
+def myFun(*argv):  
+    for arg in argv:  
+        print (arg) 
+    
+myFun('Hello', 'Welcome', 'to', 'GeeksforGeeks')  
+Hello
+Welcome
+to
+GeeksforGeeks
+
+------
+The special syntax **kwargs in function definitions in python is used to pass a keyworded, variable-length argument list. We use the name kwargs with the double star. The reason is because the double star allows us to pass through keyword arguments (and any number of them).
+
+A keyword argument is where you provide a name to the variable as you pass it into the function.
+One can think of the kwargs as being a dictionary that maps each keyword to the value that we pass alongside it. That is why when we iterate over the kwargs there doesn’t seem to be any order in which they were printed out.
+Example for usage of **kwargs:
+filter_none
+edit
+play_arrow
+
+brightness_4
+# Python program to illustrate   
+# *kargs for variable number of keyword arguments 
+  
+def myFun(**kwargs):  
+    for key, value in kwargs.items(): 
+        print ("%s == %s" %(key, value)) 
+  
+# Driver code 
+myFun(first ='Geeks', mid ='for', last='Geeks')    
+----------	
+
+class Person:
+    age = 23
+    name = "Adam"
+
+person = Person()
+
+# when default value is provided
+print('The sex is:', getattr(person, 'sex', 'Male'))
+
+# when no default value is provided
+print('The sex is:', getattr(person, 'sex'))
+
+
+------------geattr()
+
+//if u have function name given and argument also then u can use getattr like this
+getattr(a,"intersection")(set(b))  >> a.intersection(b)
+
+getattr(a,q)(b)
+
+
+-------------regex
+Regular expressions are extremely useful in extracting information from text such as: code, log files, spreadsheets, documents, etc.
+
+We can match a specific string X  in a test string S by making our regex pattern X
+ . This is one of the simplest patterns. 
+ 
+ 
+ Regex_Pattern = r'hackerrank'	# Do not delete 'r'.
+
+import re
+
+Test_String = raw_input()
+
+match = re.findall(Regex_Pattern, Test_String)
+
+print "Number of matches :", len(match)
+
+import re
+text = "Python for beginner is a very cool website"
+pattern = re.sub("cool", "good", text)
+print text2
+
+Subn. Usually re.sub() is sufficient. But another option exists. The re.subn method has an extra feature. It returns a tuple with a count of substitutions in the second element.
+Tuple
+Tip:
+If you must know the number of substitutions made by re.sub, using re.subn is an ideal choice.
+
+However:
+If your program has no use of this information, using re.sub is probably best. It is simpler and more commonly used.
+---- .
+The dot (.) matches anything (except for a newline).
+. incateany character
+> import re
+>>> pattern=r'mohit'
+>>> text="hello mohit how are u mohit"
+>>> res=re.findall(pattern,text);
+>>> print res
+['mohit', 'mohit']
+>>> print len(res)
+2
+>>> pattern=r'mo.it'
+>>> res=re.findall(pattern,text);
+>>> res
+['mohit', 'mohit']
+
+Note: If you want to match (.) in the test string, you need to escape the dot by using a slash \..
+In Java, use \\. instead of \..
+
+
+----
+str(res)
+"['mohit', 'mohit']"
+>>> str(res).upper()
+"['MOHIT', 'MOHIT']"
+
+
+to limit the no of character we use ^ in the begining and $ at the end
+
+
+ -mathes any degit- /d 
+ -mathes any non degit - /D 
+ It's easier to group digits like \d{2} rather than \d\d
+ \s matches any whitespace character [ \r\n\t\f ].
+ 
+ word characters \w 0-9 a-z A-Z (_)underscore 
+ \W  any non word charcters
+ 
+ The character class [ ] matches only one out of several characters placed inside the square brackets.
+ The negated character class [^] matches any character that is not in the square brackets.
+ Fourth character should not be a whitespace character ( \r, \n, \t, \f or <space> ).
+ 
+ --------------------------
+ Matching Character Ranges
+ __________________________
+ In the context of a regular expression (RegEx), a character class is a set of characters enclosed within 
+ square brackets that allows you to match one character in the set.
+
+A hyphen (-) inside a character class specifies a range of characters where the left and right 
+operands are the respective lower and upper bounds of the range. For example:
+ 
+ In addition, if you use a caret (^) as the first character inside a character class, 
+ it will match anything that is not in that range. For example,[0-9]  matches any character 
+ that is not a digit in the inclusive range from  0 to 9. It's important to note that, 
+ when used ^ outside of (immediately preceding) a character or character class,
+ the caret matches the first character in the string against that character or set of characters.
+ 
+ 
+ (str(bool(re.search(Regex_Pattern, raw_input()))).lower())
+ 
+ -------------------------------
+ Matching {x} Repetitions
+ --------------------------------
+ The tool {x} will match exactly x  repetitions of character/character class/groups.
+ The {x,y} tool will match between x and y (both inclusive) repetitions of character/character class/group.
+ 
+ w{3,5} : It will match the character w , 3,4 or 5 times. 
+[xyz]{5,} : It will match the character x, y or z 5 or more times. 
+\d{1, 4} : It will match any digits , 1,2 , 3or 4 times.
+The * tool will match zero or more repetitions of character/character class/group.
+
+w* : It will match the character w 0 or more times. 
+[xyz]* : It will match the characters x, y or z 0 or more times. 
+\d* : It will match any digit 0 or more times.
+The + tool will match one or more repetitions of character/character class/group.
+
+\b assert position at a word boundary.
+
+Three different positions qualify for word boundaries : 
+► Before the first character in the string, if the first character is a word character. 
+► Between two characters in the string, where one is a word character and the other is not a word character. 
+► After the last character in the string, if the last character is a word character.
+
+
+Parenthesis ( ) around a regular expression can group that part of regex together. This allows us to apply different quantifiers to that group.
+
+These parenthesis also create a numbered capturing. It stores the part of string matched by the part of regex inside parentheses.
+
+These numbered capturing can be used for backreferences. ( We shall learn about it later )
+
+
+-------------------------
+ALTERNATIVE MATCHING 
+___________________________
+Alternations, denoted by the | character, match a single item out of several possible items separated by the vertical bar. When used inside a character class, it will match characters; when used inside a group, it will match entire expressions (i.e., everything to
+ the left or everything to the right of the vertical bar). We must use parentheses to limit the use 
+ of alternations.
+ 
+ For example:
+
+(Bob|Kevin|Stuart) will match either Bob or Kevin or Stuart.
+([a-f]|[A-F]) will match any of the following characters: a, b, c, d, e, f, A, B, C, D, E, or F.
+
+______________________________
+BACKREFERENCE
+____________________________
+ we can find that a string is palindrom or not even more 
+ This tool (\1 references the first capturing group) matches the same text as previously matched by the capturing group.
+ For Example: 
+
+(\d)\1: It can match 00, 11, 22, 33, 44, 55, 66, 77, 88 or 99.
+
+
+() creates the group. When you mention (-)? then matching group is "-". So backreference will search
+ for "-". it wont match 
+12345678. When (-?) is used, the matching group is nothing or "-". So it will match 12345678.
+
+
+--------------------------
+NOTE - Forward reference is supported by JGsoft, .NET, Java, Perl, PCRE, PHP, Delphi and Ruby regex flavors.
+
+Forward reference creates a back reference to a regex that would appear later. 
+Forward references are only useful if they're inside a repeated group. 
+Then there may arise a case in which the regex engine evaluates the backreference after the group has been matched already.
+
+
+eg (\2amingo|(go!))+
+
+-------------
+Branch Reset Groups
+---------------
+NOTE - Branch reset group is supported by Perl, PHP, Delphi and R.
+
+
+A branch reset group consists of alternations and capturing 
+groups. (?|(regex1)|(regex2)) 
+Alternatives in branch reset group share same
+ capturing group.
+ (?|(haa)|(hee)|(bye)|(k))\1
+ output :haahaa
+ kk
+ for this:12-34-56-78
+ $Regex_Pattern = '/^\d{2}(?|(-)|(:)|(---)|(\.))\d{2}\1\d{2}\1\d{2}$/'
+ supportedin perl and php only
+ 
+ 
+ 
+ --------------------
+ forward chaing
+ __________________________
+ Just explaining :-)
+
+RegEx = (\2tic|(tac))+
+
+Break It as :
+
+ group_2 = tac
+ group_1 = group_2 and tic OR group_2
+So my new
+
+ RegEx = (group_1)+ 
+
+       = 1 or more repetition of group_1 [group_1 has two alternatives] 
+==>
+
+First it will try to match group_2 and tic but still we didn't captured group_2 so we don't get it at first place.
+So it will match group_2 == tac [this will make group_1 == (tactic|tac)]
+than beacuse of + we can match any alternatives from (tactic|tac) more than 1 times.
+
+--------------------
+positive lookahead
+__________________________
+regex_1(?=regex2)
+The positive lookahead (?=) asserts regex_1 to be immediately followed by regex_2. The lookahead is excluded from the match. It does not return matches of regex_2. The lookahead 
+only asserts whether a match is possible or not.
+eg
+c(?=o)
+chocolate
+Write a regex that can match all occurrences of o followed immediately by oo in S.
+Regex_Pattern = r'o(?=oo)'
+
+------------
+negative lookahead
+-----------------
+The negative lookahead (?!) asserts regex_1 not to be immediately followed by regex_2. Lookahead is excluded from the match (do not consume matches of regex_2), but only assert whether a match is possible or not.
+
+Task
+
+You have a test String . 
+Write a regex which can match all characters which are not immediately followed by that same character.
+
+Example
+
+If  = goooo, then regex should match goooo. Because the first g is not follwed by g and the last o is not followed by o.
+Regex_Pattern = r"(.)(?!\1)"
+
+-------------
+positive lookbehind
+----------------
+The positive lookbehind (?<=) asserts regex_1 to be immediately preceded by regex_2. Lookbehind is excluded from the match (do not consume matches of regex_2), but only assert whether a match is possible or not.
+(?<=[a-z])[aeiou]
+helo
+
+---------------
+Negative Lookbehind
+
+__________________________
+(?<!regex_2)regex_1
+The negative lookbehind (?<!) asserts regex_1 not to be immediately preceded by regex_2. Lookbehind is excluded from the match (do not consume matches of regex_2), but only assert whether a match 
+is possible or not.
+
+An English alphabetic letter (i.e., a-z and A-Z).
+A decimal digit (i.e., 0-9).
+An underscore (i.e., _, which corresponds to ASCII value ).
+We define a word to be a contiguous sequence of one or more word characters that is preceded and succeeded by one or more occurrences of non-word-characters or line terminators. For example, in the string I l0ve-cheese_?, the words are I, l0ve, and cheese_.
+
+We define a sub-word as follows:
+
+A sequence of word characters (i.e., English alphabetic letters, digits, and/or underscores) that occur in the same exact order (i.e., as a contiguous sequence) inside another word.
+It is preceded and succeeded by word characters only.
+
+
+-----------------
+format 
+----------------
+match=re.findall(r'\w+%s\w+'%format(s),strin)
+-------------------------
+from sys import maxsize----------------
+
+print("Sammy has {0:4} red {1:16}!".format(5, "balloons"))
+Output
+Sammy has    5 red balloons        !
+In the example above, we gave the number 5 a character field size of 4, and the string balloons a character field size of 16 (because it is a long string).
+
+As we see, by default strings are left-justified within the field, and numbers are right-justified. You can modify this by placing an alignment code just following the colon. < will left-align the text in a field, ^ will center the text in the field, and > will right-align it.
+
+Let’s left-align the number and center the string:
+
+print("Sammy has {0:<4} red {1:^16}!".format(5, "balloons"))
+Output
+Sammy has 5    red     balloons    !
+
+"5"!=5 true /////
+
+No escape needed for the other characters such as ., +, *, ?, (, ), {, }, and etc, inside the bracket list
+To include a \, use escape \\.
+?: The preceding item is optional and matched at most once (i.e., occurs 0 or 1 times or optional).
+Backtracking: If a regex reaches a state where a match cannot be completed, it backtracks by unwinding 
+one character from the greedy match. For example, if the regex z*zzz is matched against the string "zzzz", the
+ z* first matches "zzzz"; unwinds to match "zzz"; 
+unwinds to match "zz"; and finally unwinds to match "z", such that the rest of the patterns can find a match.
+
+->Backtracking: If a regex reaches a state where a match cannot be completed, it backtracks by unwinding one
+ character from the greedy match. For example, if the regex z*zzz is matched against the string "zzzz", the 
+ z* first matches "zzzz"; unwinds to match "zzz"; 
+
+unwinds to match "zz"; and finally unwinds to match "z", such that the rest of the patterns can find a match.
+
+
+------------
+The (?=pattern) is known as positive lookahead. It performs the match, but does not capture the match, 
+returning 
+only the result: match or no match. It is also called assertion as it does not consume any characters in matching
+-------------------------------
+Negative Lookahead (?!pattern)
+------------------------------
+Inverse of (?=pattern). Match if pattern is missing. For example, a(?=b) matches 'a' in 'abc' (not consuming 'b');
+ but not 'acc'. Whereas a(?!b) matches 'a' in 'acc', but not abc.
+
+ Non-Capturing Group (?:pattern)
+Recall that you can use Parenthesized Back-References to capture the matches. To disable capturing, use ?: 
+inside the parentheses in the form of (?:pattern). 
+In other words, ?: disables the creation of a capturing group, so as not to create an unnecessary capturing group.
+
+ match=re.findall(r'me(?=d)',"medffdme")
+>>> match
+['me']
+
+match=re.findall(r'me(?=d*)',"meddffdme")
+>>> match
+['me', 'me']
+
+
+--------------------
+re.match(pattern, text):
+---------------------------
+Python 3 - TIP: use "re.IGNORECASE" Instead of [Hh][Aa] and so on ..
+
+
+-------------READING WHOLE PAGE AS INPUT
+import sys
+
+pattern = re.compile(r'href="/questions/(\d+)/.+?>(.+?)</a>.+?class="relativetime">(.+?)</span>', re.DOTALL)
+
+fragment = sys.stdin.read()
+
+result = pattern.findall(fragment)
+
+o=""
+for i in result:
+    print ";".join(i)
+    
+print o    
+
+--------------------------
+regex completed -part1 completed
+------------------------------------------------------
+
+infinity 
+float("inf")
+
+-------------set precision of float
+n=int(input())
+a=map(int,raw_input().split())
+sum_t=float(len(a)*100)
+sum1=0
+for i in a:
+    sum1+=i
+print ("%.012f "%(sum1*100/sum_t))
