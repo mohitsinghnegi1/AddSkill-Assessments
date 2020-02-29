@@ -36,6 +36,7 @@ o garbage collector is a mechanism to clean up dead object periodically
 Dutch flag problem
 
 
-
+External Sorting 
+Sorting data when all your data does not fit into ram
 
 

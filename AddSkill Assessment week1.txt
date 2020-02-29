@@ -394,4 +394,287 @@ class Solution(object):
                 
             
             j+=1
+Qus 16:https://leetcode.com/problems/trapping-rain-water/
+Sol:
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+    
+        n=len(height)
+        if(n==0 or n==1):
+            return 0
+        lmax=[height[0]]
+        for i in range(1,n):
+            lmax.append(max(height[i],lmax[-1]))
+        rmax=[0]*len(height)
+        rmax[-1]=height[-1]
+        for i in range(n-2,-1,-1):
+            rmax[i]=max(rmax[i+1],height[i])
+        #print lmax,rmax
+        
+        total=0
+        for i in range(1,n-1):
+            
+            total+=min(lmax[i],rmax[i])-height[i] 
+        return total
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+#         n=len(height)
+#         if(n==0 or n==1 ):
+#             return 0
+#         left_mh=[height[0]]
+#         #make a array in which each elemnt will tell what is the lagest hargiht till now
+#         for i in range(1,n):
+#             left_mh.append(max(left_mh[i-1],height[i]))
+        
+#         right_mh=[0]*n
+#         right_mh[-1]=height[-1]
+#         # print right_mh,n
+#         for i in range(n-2,-1,-1):
+#             # print i,right_mh
+#             right_mh[i]=max(right_mh[i+1],height[i])
+#         total=0
+#         for i in range(1,n-1):
+#             left_max=left_mh[i]
+#             right_max=right_mh[i]
+#             min_height=min(left_max,right_max)
+#             total+=min_height-height[i]
+            
+#         return total
+            
+          
+  Qus17: https://leetcode.com/problems/filter-restaurants-by-vegan-friendly-price-and-distance/submissions/
+SOl :
+class Solution(object):
+    def filterRestaurants(self, restaurants, vf, maxPrice, maxDistance):
+        """
+        :type restaurants: List[List[int]]
+        :type veganFriendly: int
+        :type maxPrice: int
+        :type maxDistance: int
+        :rtype: List[int]
+        """
+        filtered_res=[]
+        for restaurant in restaurants:
+            if(vf==1 and restaurant[2]!=1 or restaurant[3]>maxPrice or restaurant[4]>maxDistance):
+                continue
+            filtered_res.append(restaurant)
+        filtered_res.sort(reverse=True,key=lambda x:(x[1],x[0]))
+        
+        
+        res=[]
+        for i in filtered_res:
+            res.append(i[0])
+        return res
+
+
+Qus 18: https://leetcode.com/problems/linked-list-components/submissions/
+Sol :
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def numComponents(self, head, G):
+        """
+        :type head: ListNode
+        :type G: List[int]
+        :rtype: int
+        """
+        G=set(G)
+        #single all elemnt is unique we can directly use in oprator
+        ptr=head
+        c=0
+        count=0
+        while(ptr!=None):
+            if(ptr.val in G and c==0):
+                c=1
+                count+=1
+            if(ptr.val not in G):
+                c=0
+            ptr=ptr.next
+        return count		
+		
+Qus 19: https://leetcode.com/problems/filter-restaurants-by-vegan-friendly-price-and-distance/submissions/
+SOl:
+class Solution(object):
+    def filterRestaurants(self, restaurants, vf, maxPrice, maxDistance):
+        """
+        :type restaurants: List[List[int]]
+        :type veganFriendly: int
+        :type maxPrice: int
+        :type maxDistance: int
+        :rtype: List[int]
+        """
+        filtered_res=[]
+        for restaurant in restaurants:
+            if(vf==1 and restaurant[2]!=1 or restaurant[3]>maxPrice or restaurant[4]>maxDistance):
+                continue
+            filtered_res.append(restaurant)
+        filtered_res.sort(reverse=True,key=lambda x:(x[1],x[0]))
+        
+        
+        res=[]
+        #use bubble sort and use stable bubble or merge sort on the bases of rating
+        for i in filtered_res:
+            res.append(i[0])
+        return res
+Qus 20: https://leetcode.com/problems/trapping-rain-water/
+Sol:
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+    
+        n=len(height)
+        if(n==0 or n==1):
+            return 0
+        lmax=[height[0]]
+        for i in range(1,n):
+            lmax.append(max(height[i],lmax[-1]))
+        rmax=[0]*len(height)
+        rmax[-1]=height[-1]
+        for i in range(n-2,-1,-1):
+            rmax[i]=max(rmax[i+1],height[i])
+        #print lmax,rmax
+        
+        total=0
+        for i in range(1,n-1):
+            
+            total+=min(lmax[i],rmax[i])-height[i] 
+        return total
+
+Qus 21: https://leetcode.com/problems/linked-list-cycle-ii/submissions/
+Sol:
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        d={}
+        ptr=head
+        
+        while ptr:
+            if id(ptr) in d:
+                return d[id(ptr)]
+            else:
+                d[id(ptr)]=ptr
+            ptr=ptr.next
+        return None
+    
+Qus 22: https://leetcode.com/problems/linked-list-cycle-ii/submissions/
+Sol :
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if(head==None):
+            return None
+        out=None
+        ptr=head
+        ptr1=head.next
+        
+        while(ptr!=None and ptr1!=None):
+            #print ptr.val,ptr1.val
+            
+            if(ptr==ptr1):
+                print ptr1.val,ptr.val
+                out=ptr
+                
+                break
+            ptr=ptr.next
+            if(ptr1.next==None):
+                break
+            ptr1=ptr1.next.next
+        
+        if(out==None):
+            return None
+        
+        ptr1=head
+        
+        while(ptr1!=ptr):
+            #print ptr.val,ptr1.val
+            ptr=ptr.next
+            #this condition should be in middle
+            if(ptr==ptr1):
+                break
+            ptr1=ptr1.next
+        #this will be the case [1] 0 when there is only one elemnt
+        return ptr
+        
+
+Qus 23 :https://leetcode.com/problems/insert-interval/submissions/
+Sol :
+class Solution(object):
+    def insert(self, intervals, newInterval):
+        """
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        """
+        #my algo basically have three parts first part is before overlapping sequaence
+        #second part is overlapping sequence
+        #third part is after overlapping sequence
+        
+        flag=False
+        x1,y1=newInterval
+        o=[]
+        for interval in intervals:
+            x2,y2=interval
+            #insert all elemnts before overlapping list 
+            if(y2<x1):
+                o.append([x2,y2])
+                continue
+                
+            
+            if(x2>y1 ):#this condition is for after overlapping sequaence
+                
+                if(flag==False):
+                    #insert overlapping and one current intervals elemnt 
+                    o.append([x1,y1])
+                    o.append([x2,y2])
+                    flag=True
+                else:
+                    #insert all elelmnts after overlapping list
+                    o.append([x2,y2])
+            else:
+                #taking union until we combine all overlapping elemnt
+                x1,y1=min(x1,x2),max(y1,y2)
+        if(flag==False):
+            o.append([x1,y1])
+        return o        
+        
+                      
         

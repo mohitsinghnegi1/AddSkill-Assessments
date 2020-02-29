@@ -1,0 +1,309 @@
+Qus 1: 
+SOl:https://leetcode.com/problems/sort-colors/submissions/
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        
+        """
+         # Dutch National Flag Algorithm, or 3-way Partitioning —
+        low=0
+        mid=0
+        high=len(nums)-1
+        while(mid<=high):
+            if(nums[mid]==0):
+                nums[low],nums[mid]=nums[mid],nums[low]
+                low+=1
+                mid+=1
+                #alway low will be 0 or 1 as mid already triverse and puted all 2 at the end
+            elif(nums[mid]==1):
+                mid+=1 #since 1 should be in middle so skip 
+            else:
+                nums[mid],nums[high]=nums[high],nums[mid]
+                high-=1
+
+#         Sol2
+        # count0=0
+        # count1=0
+        # count2=0
+        # for i in range(len(nums)):
+        #     if(nums[i]==0):
+        #         count0+=1
+        #     if(nums[i]==1):
+        #         count1+=1
+        #     if(nums[i]==2):
+        #         count2+=1
+        # i=0
+        # # print count2
+        # while(count0>0 or count1>0 or count2>0  ):
+        #     # print count0,count1,count2
+        #     if(count0>0):
+        #         nums[i]=0
+        #         count0-=1
+        #     elif(count1>0):
+        #         nums[i]=1
+        #         count1-=1
+        #     else:
+        #         nums[i]=2
+        #         count2-=1
+        #     i+=1
+        
+        # print nums        
+
+
+Qus 2:https://leetcode.com/problems/maximum-gap/
+SOl: 
+class Solution(object):
+    def maximumGap(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if(len(nums)<2):
+            return 0
+        def bucketSort(nums,i):
+            l=[]
+            r=[]
+            j=0
+            
+            while(j<len(nums)):
+                #print "uiu ",nums[j][i]
+                if(nums[j][i]=='0'):
+                    l.append(nums[j])
+                else:
+                    r.append(nums[j])
+                j+=1
+            #print l,r
+                 
+            return l+r
+            
+            
+        def stableSort(nums):
+            
+            nums=map(lambda x:bin(x)[2:].rjust(32,'0'),nums)
+            for i in range(31,0,-1):
+                nums=bucketSort(nums,i)
+                #print nums
+            nums=map(lambda x:int(x,2),nums)
+            #print nums
+            return nums
+        
+        # nums=sorted(nums)
+        #sort in accending order
+        nums=stableSort(nums)
+        max1=0
+        for i in range(1,len(nums)):
+            max1=max(max1,nums[i]-nums[i-1])
+        return max1
+Qus 3:https://leetcode.com/problems/filter-restaurants-by-vegan-friendly-price-and-distance/
+Sol :
+class Solution(object):
+    def filterRestaurants(self, restaurants, vf, maxPrice, maxDistance):
+        """
+        :type restaurants: List[List[int]]
+        :type veganFriendly: int
+        :type maxPrice: int
+        :type maxDistance: int
+        :rtype: List[int]
+        """
+        filtered_res=[]
+        for restaurant in restaurants:
+            if(vf==1 and restaurant[2]!=1 or restaurant[3]>maxPrice or restaurant[4]>maxDistance):
+                continue
+            filtered_res.append(restaurant)
+        filtered_res.sort(reverse=True,key=lambda x:(x[1],x[0]))
+        
+        
+        res=[]
+        #use bubble sort and use stable bubble or merge sort on the bases of rating
+        for i in filtered_res:
+            res.append(i[0])
+        return res
+	
+Qus4:https://leetcode.com/problems/min-stack/submissions/
+Sol:
+class MinStack(object):
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.min=None
+        self.stack=[]
+        self.minstack=[]
+
+    def push(self, x):
+        """
+        :type x: int
+        :rtype: None
+        """
+        if(self.minstack==[]):
+            self.minstack.append(x)
+        else:
+            self.minstack.append(min(self.minstack[-1],x))
+        self.stack.append(x)
+
+    def pop(self):
+        """
+        :rtype: None
+        """
+        self.minstack.pop()
+        return self.stack.pop()
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.stack[-1]
+
+    def getMin(self):
+        """
+        :rtype: int
+        """
+        return self.minstack[-1]
+
+
+# Your MinStack object will be instantiated and called as such:
+# obj = MinStack()
+# obj.push(x)
+# obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.getMin()
+
+
+
+Qus 5:Create a chain hashing using hashfunction n%6 and do insertion and search elemnt 
+sol:
+# Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+    
+def hashfunction(n):
+    return n%6
+def search(searchKey,ptr):
+    key=hashfunction(searchkey)
+    
+    while(ptr!=None):
+        if(ptr.val==searchkey):
+            return "found"
+        ptr=ptr.next
+
+    return "not found"
+
+    
+    
+    
+a=map(int,raw_input().split())
+ht=[None]*6
+head=[None]*6
+tail=[None]*6
+for i in a:
+    key=hashfunction(i)
+    if(head[key]!=None):
+        node=ListNode(i)
+        tail[key].next=node
+        tail[key]=tail[key].next
+    else:
+        head[key]=ListNode(i)
+        tail[key]=head[key]
+        
+        ht[key]=head[key]
+    
+for i in ht:
+    ptr=i
+    while(ptr!=None):
+        print ptr.val,
+        ptr=ptr.next
+    if(i!=None):
+        print 
+#search key
+searchkey=int(input())
+ptr=ht[key]
+ans=search(searchkey,ptr)
+print ans
+
+Qus 6 :https://leetcode.com/problems/group-anagrams/submissions/
+SOl :
+from collections import defaultdict
+class Solution(object):
+    def groupAnagrams(self, s):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        # d={}
+        # for i in s:
+        #     k="".join(sorted(i))
+        #     if(d.get(k,None)):
+        #         d[k].append(i)
+        #     else:
+        #         d[k]=[i]
+        # #print d
+        # res=[]
+        # for i in d:
+        #     res.append(d[i])
+        # return res
+        d=defaultdict(list)
+        
+        for st in s:
+            a=[0]*26
+            for c in st:
+                a[ord(c)-ord('a')]+=1
+            
+                
+            d[tuple(a)].append(st)
+        return d.values()
+                
+                
+            
+            
+Qus 7:https://leetcode.com/problems/single-number/submissions/
+Sol :
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if(nums==[]):
+            return 0
+        xor=nums[0]
+        if(len(nums)==1):
+            return xor
+        xor=xor^nums[1]
+        for i in range(2,len(nums)):
+            xor^=nums[i]
+        return xor
+        
+        
+Qus 8:https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
+Sol :
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if(len(s)==0):
+            return 0
+        max1=1
+   
+        o=[]
+        for j,i in enumerate(s):
+            if(i not in o):
+                o.append(i)
+            else:
+                max1=max(max1,len(o))
+                index=o.index(i)
+                o=o[index+1:]
+                o.append(i)
+        max1=max(max1,len(o))
+        return max1
+                
+            
+ 
+
+

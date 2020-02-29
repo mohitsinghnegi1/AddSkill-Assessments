@@ -229,7 +229,10 @@ https://leetcode.com/problems/max-consecutive-ones-iii/submissions/ just below q
 https://www.interviewbit.com/problems/max-continuous-series-of-1s/ sliding vindow my fav concept also please see two pointer apprach in interviewbit
 https://www.interviewbit.com/problems/3-sum/  nice two pointer logic 
 https://www.interviewbit.com/problems/max-sum-path-in-binary-tree/ hard one do it dry run
-
+https://leetcode.com/problems/linked-list-components/submissions/
+https://leetcode.com/problems/linked-list-cycle-ii/  vvimp concept of detecting cycle and point of starting - 2 ways dict and fast pointer
+https://leetcode.com/problems/insert-interval/submissions/  bahut accha concept -
+https://leetcode.com/problems/merge-k-sorted-lists/  bahut hard-exciting using heapq
 -------
 v v imp Thus a connected graph of n vertices and (n-1) edges cannot have a circuit
 
