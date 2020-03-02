@@ -281,6 +281,10 @@ class Solution(object):
         
 Qus 8:https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
 Sol :
+
+
+#please do it using sliding window and dict of character as key and value as index of character
+# so whenever the current character is present in the array then we get the currrent character from dict and use len from i+1 to j and update max 
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
         """
@@ -304,6 +308,63 @@ class Solution(object):
         return max1
                 
             
- 
+ Qus 9 : https://leetcode.com/problems/lru-cache/
+ SOl :
+ #try to do it using doubly linked list
+ from collections import OrderedDict
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.d=OrderedDict({})
+        self.capacity=capacity
+        self.count=0
+        
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        # print self.d
+        if(self.d.get(key,None)==None):
+            return -1
+        value=self.d[key]
+        del self.d[key]
+        self.d[key]=value
+        return self.d.get(key)
+        
+        
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: None
+        """
+        #incase if element is already present we need to handle that case too
+        if(self.count>=self.capacity and key not in self.d):
+            for i in self.d:
+                del self.d[i]
+                self.count-=1
+                break
+        #this piece of code will handle case when there is already key present 
+        if(key in self.d):
+            del self.d[key]
+            self.count-=1
+            
+        self.d[key]=value
+        
+        
+        self.count=self.count+1
+        # print self.count
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
 
 

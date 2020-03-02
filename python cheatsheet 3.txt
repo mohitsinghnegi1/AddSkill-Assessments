@@ -233,6 +233,7 @@ https://leetcode.com/problems/linked-list-components/submissions/
 https://leetcode.com/problems/linked-list-cycle-ii/  vvimp concept of detecting cycle and point of starting - 2 ways dict and fast pointer
 https://leetcode.com/problems/insert-interval/submissions/  bahut accha concept -
 https://leetcode.com/problems/merge-k-sorted-lists/  bahut hard-exciting using heapq
+https://leetcode.com/problems/lru-cache/  vv imp using defaultDict , Doubly linked list and hashmap(nee to implement)
 -------
 v v imp Thus a connected graph of n vertices and (n-1) edges cannot have a circuit
 
