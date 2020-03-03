@@ -14,17 +14,32 @@ In addition, it will automatically close the file. The with statement provides
 a way for ensuring that a clean-up is always used.
 -----
 Without the with statement, we would write something like this:
-file = open("welcome.txt")
+//file is file discriptor
+file = open("welcome.txt",[r,w,a,r+])
+//file.name //these are the property
+//file.mode //
+//file.tell() //will tell the current position of the pointer
+//file.seek(index) //change location to any pos
+//file.read()
+//file.write()
 
-data = file.read()
+data = file.read([number of char to read])
+read return "" when EOF
+
+to get as a list 
+line = lines=file.readline()
+print(line,end="")
+lines=file.readlines()
 
 print data
-
+for line in data:
+	line.strip() //this will remove \n and space from each line
 file.close()  # It's important to close the file when you're done with it
 ------
 
 With Statement Usage
 Opening a file using with is as simple as: with open(filename) as file:
+//using a context maanger
 with open("welcome.txt") as file: # Use file to refer to the file object
 
    data = file.read()
@@ -38,3 +53,32 @@ with open('output.txt', 'w') as file:  # Use file to refer to the file object
 Notice, that we didn't have to write "file.close()". That will automatically be
 called. 
 -------
+
+
+opening two files simultaniously using coma separate or nesting
+//this is for text file
+with open('test1.text','r') as rf:
+	with open('text_copy.txt','w') as wf:
+	
+		for line in rf:
+		
+			wf.write(line)
+			
+//for img or other file
+with open('test1.text','rb') as rf:
+	with open('text_copy.txt','wb') as wf:
+	
+		for line in rf:
+		
+			wf.write(line)
+			
+//this is for text file
+with open('test1.text','r') as rf:
+	with open('text_copy.txt','w') as wf:
+	
+		chunk_size=1024
+		rf_chunk=rf.read(chunk_siz)
+		while(len(rf_chunk)>0):
+			wf.write(rf_chunk)
+			rf_chunk=rf.read(chunk_siz)
+			
