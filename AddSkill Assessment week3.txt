@@ -133,3 +133,172 @@ class Solution(object):
             xor=xor^ord(i)
         return chr(xor)
    
+Qus 4: https://leetcode.com/problems/find-all-anagrams-in-a-string/submissions/
+Sol:
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        ls=len(s)
+        lp=len(p)
+        if(ls<lp or ls==0):
+            return []
+        sa=[0]*26
+        pa=[0]*26
+        idx_a=[]
+        
+        for i in p:
+            pa[ord(i)-ord('a')]+=1
+        
+        for i in range(ls):
+            if(i>=lp-1):
+                
+                sa[ord(s[i])-ord('a')]+=1
+                #print sa,pa
+                if(sa==pa):
+                    idx_a.append(i-lp+1)
+                sa[ord(s[i-lp+1])-ord('a')]-=1
+                
+                
+            else:
+                sa[ord(s[i])-ord('a')]+=1
+        
+        return idx_a
+
+
+Qus 5 :https://leetcode.com/problems/bulls-and-cows/submissions/
+Sol:
+class Solution(object):
+    def getHint(self, secret, guess):
+        """
+        :type secret: str
+        :type guess: str
+        :rtype: str
+        """
+        bull=0
+        cow=0
+        s={}
+        g={}
+        for i in range(len(guess)):
+            if(secret[i]==guess[i]):
+                bull+=1
+            else:
+                g[guess[i]]=g.get(guess[i],0)+1
+                s[secret[i]]=s.get(secret[i],0)+1
+        
+        for i in g:
+            cow+=min(s.get(i,0),g.get(i))
+        return str(bull)+"A"+str(cow)+"B"
+        
+ Qus 6:https://leetcode.com/problems/island-perimeter/submissions/
+Sol:
+class Solution(object):
+    def islandPerimeter(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        n=len(grid)-1
+        m=len(grid[0])-1
+        parameter=0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if(grid[i][j]==1):
+                    if(i-1<0 or grid[i-1][j]==0):
+                        parameter+=1
+                    if(i+1>n or grid[i+1][j]==0):
+                        parameter+=1
+                    if(j-1<0 or grid[i][j-1]==0):
+                        parameter+=1
+                    if(j+1>m or grid[i][j+1]==0):
+                        parameter+=1
+        return parameter
+                    
+Qus 7:https://leetcode.com/problems/distribute-candies/submissions/
+Sol:
+ class Solution(object):
+    def distributeCandies(self, candies):
+        """
+        :type candies: List[int]
+        :rtype: int
+        """
+        n=len(candies)
+        set1=set(candies)
+        return min(n/2,len(set1))
+		
+Qus 8:https://leetcode.com/problems/design-hashset/submissions/
+Sol:
+class MyHashSet(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.set1=[False]*1000000
+
+    def add(self, key):
+        """
+        :type key: int
+        :rtype: None
+        """
+        self.set1[key]=True
+
+    def remove(self, key):
+        """
+        :type key: int
+        :rtype: None
+        """
+        self.set1[key]=False
+
+    def contains(self, key):
+        """
+        Returns true if this set contains the specified element
+        :type key: int
+        :rtype: bool
+        """
+        return self.set1[key]
+
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
+
+
+Qus 9: https://leetcode.com/problems/find-common-characters/submissions/
+
+Sol:
+class Solution(object):
+    def commonChars(self, A):
+        """
+        :type A: List[str]
+        :rtype: List[str]
+        """
+        if(not len(A)):
+            return []
+        
+        a=[0]*26
+        
+        for c in A[0]:
+            a[ord(c)-ord('a')]+=1
+        for i in A:
+            b=[0]*26
+            for c in i:
+                b[ord(c)-ord('a')]+=1
+            #a and b is created now we need to take min
+            for i in range(26):
+                a[i]=min(a[i],b[i])
+        ans=[]
+        for i,v in enumerate(a):
+            for j in range(v):
+                ans.append(chr(i+ord('a')))
+        return ans
+            
+            
+            
+ Qus 10:
+ Sol:

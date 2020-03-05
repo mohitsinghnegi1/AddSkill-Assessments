@@ -234,6 +234,7 @@ https://leetcode.com/problems/linked-list-cycle-ii/  vvimp concept of detecting 
 https://leetcode.com/problems/insert-interval/submissions/  bahut accha concept -
 https://leetcode.com/problems/merge-k-sorted-lists/  bahut hard-exciting using heapq
 https://leetcode.com/problems/lru-cache/  vv imp using defaultDict , Doubly linked list and hashmap(nee to implement)
+https://leetcode.com/problems/find-all-anagrams-in-a-string/submissions/  nice solution 
 -------
 v v imp Thus a connected graph of n vertices and (n-1) edges cannot have a circuit
 
@@ -914,3 +915,9 @@ def foo(param):
     return stack
 
 print foo("aabbbacda")
+
+
+
+
+Note---------------------------
+With an array, [a, b] is not the same as [b, a]. But with a set, (a, b) is the same as (b, a).
