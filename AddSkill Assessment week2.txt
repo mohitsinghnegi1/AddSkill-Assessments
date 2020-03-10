@@ -367,4 +367,243 @@ class LRUCache(object):
 # param_1 = obj.get(key)
 # obj.put(key,value)
 
+Qus 10:https://leetcode.com/problems/largest-perimeter-triangle/submissions/
+sOL:
+class Solution(object):
+    def largestPerimeter(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        if(len(A)<3):
+            return 0
+        A.sort()
+        for i in range(len(A)-3,-1,-1):
+            
+            if(A[i]+A[i+1]>A[i+2]):
+                return A[i]+A[i+1]+A[i+2]
+        return 0
+		
+qUS 11:https://leetcode.com/problems/largest-rectangle-in-histogram/
+Sol : Brute force O(n2)
+class Solution:
+    def largestRectangleArea(self, height):
+        
+        area=0
+        #calculate area by moving to left and right 
+        
+        for i in range(len(height)):
+            l=i
+            ca=0
+            
+            while(l>=0):
+                if(height[l]>=height[i]):
+                    ca=ca+height[i]
+                    area=max(area,ca)
+                else:
+                    break
+                l-=1
+                
+            r=i+1
+            while(r<len(height)):
+                if(height[r]>=height[i]):
+                    ca=ca+height[i]
+                    area=max(area,ca)
+                else:
+                    break
+                r+=1
+        return area
+        
+		
+better solution-----
+def largestRectangleArea(self, height):
+        max1=0
+        stack=[]
+        i=0
+        while(i<len(height)):
+            if(stack==[] or height[stack[-1]]<=height[i]):
+                if(stack!=[]):
+                    #print height[stack[-1]],height[i]
+                stack.append(i)
+                print stack
+                i+=1
+            else:
+                #current val is i height[i] is smaller then the last visited elemnt            
+                print "2 ",stack
+                pop1=stack.pop()
+                
+                if(stack==[]):
+                    max1=max(max1,height[pop1]*(i))
+                else:
+                    max1=max(max1,height[pop1]*(i-1-stack[-1]))
+                
+        while(stack!=[]):
+            pop1=stack.pop()
+            if(stack==[]):
+                max1=max(max1,height[pop1]*(i))
+            else:
+                max1=max(max1,height[pop1]*(i-1-stack[-1]))
+        
+        
+        
+        
+        return max1
+		
+		
+Qus 12 :https://leetcode.com/problems/insertion-sort-list/submissions/
+Sol :
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
+class Solution(object):
+    def insertionSortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        #how it could be done using single pointer
+        if(head==None):
+            return
+        cur=head.next
+        iptr=head
+        
+        while(cur!=None):
+            
+            while(iptr!=cur):
+                if(iptr.val>cur.val):
+                    iptr.val,cur.val=cur.val,iptr.val
+                iptr=iptr.next
+                
+            
+            iptr=head
+            cur=cur.next
+            
+            
+        return head
+        
+----------------------------------------------------
+
+Qus 13:https://leetcode.com/problems/sort-the-matrix-diagonally/submissions/
+Sol :
+class Solution(object):
+    from collections import defaultdict
+    def diagonalSort(self, mat):
+        """
+        :type mat: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        
+        d=collections.defaultdict(list)
+        for i in range(len(mat)):
+            for j in range(len(mat[0])):
+                d[i-j].append(mat[i][j])
+        #print d
+        
+        for i in d:
+            d[i].sort(reverse=True)
+        for i in range(len(mat)):
+            for j in range(len(mat[0])):
+                mat[i][j]=d[i-j].pop()
+        return mat
+#second solution-----
+#         if(len(mat)==0):
+#             return []
+#         for p in range(max(len(mat),len(mat[0]))):
+            
+#             for i in range(len(mat)-1,0,-1):
+#                 for j in range(len(mat[0])-1,0,-1):
+#                     if(mat[i][j]<mat[i-1][j-1]):
+#                         mat[i][j],mat[i-1][j-1]=mat[i-1][j-1],mat[i][j]
+#         return mat
+
+
+QUs 14:https://leetcode.com/problems/matrix-cells-in-distance-order/
+Sol:
+class Solution(object):
+    def allCellsDistOrder(self, R, C, r0, c0):
+        #sol 1 using bubble sort complexity O(n**2)
+        m=[abs(r0-i)+abs(c0-j) for i in range(R) for j in range(C)]
+        n=[[i,j] for i in range(R) for j in range(C)]
+        for i in range(len(n)):
+            for j in range(1,len(n)):
+                if(m[j-1]>m[j]):
+                    m[j-1],m[j]=m[j],m[j-1]
+                    n[j-1],n[j]=n[j],n[j-1]
+        
+        return n
+    
+        #calculate mahanta distance array
+        #time complexity sol 2 O(nlogn)
+        # m=[abs(r0-i)+abs(c0-j) for i in range(R) for j in range(C)]
+        # n=[[i,j] for i in range(R) for j in range(C)]
+        # n.sort(key=lambda x:m[C*x[0]+x[1]])
+        # return n
+        
+Qus 15:https://leetcode.com/problems/car-fleet/submissions/
+Sol:
+class Solution(object):
+    def carFleet(self, target, pos, s):
+        """
+        :type target: int
+        :type position: List[int]
+        :type speed: List[int]
+        :rtype: int
+        """
+        #pos is the main factor so if speed of behind cars is more then it will come in same fleet othervise it will come in different fleet
+        if(pos==[]):
+            return 0
+        a=[]
+        for i in range(len(pos)):
+            a.append((pos[i],s[i]))
+        a.sort(key=lambda x: x[0],reverse=True)
+        fleet=1
+        #TIME = distance/speed
+        time=((target-a[0][0])+0.0)/(a[0][1]+0.0)
+        for i in range(1,len(pos)):
+            curtime=((target-a[i][0])+0.0)/(a[i][1]+0.0)
+            #print curtime,time
+            if(curtime>time):
+                fleet+=1
+                time=curtime
+        return fleet
+            
+----
+Qus 16:https://leetcode.com/problems/sort-list/
+Sol: not in place
+ # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        #using O(n) space
+        ptr=head
+        a=[]
+        while(ptr!=None):
+            a.append(ptr.val)
+            ptr=ptr.next
+        head1=ListNode(0)
+        ptr=head1
+        a.sort(reverse=True)
+        while(a!=[]):
+            el=a.pop()
+            ptr.next=ListNode(el)
+            ptr=ptr.next
+        return head1.next
+            
+        
+            
+ 
+        
+        
+        
+        

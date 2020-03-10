@@ -1,0 +1,282 @@
+Qus 1: https://leetcode.com/problems/kth-smallest-element-in-a-bst/submissions/
+Sol :
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def kthSmallest(self, root, k):
+        """
+        :type root: TreeNode
+        :type k: int
+        :rtype: int
+        """
+        v=[]
+        def inorder(root):
+            if(root==None):
+                return
+            inorder(root.left)
+            v.append(root.val)
+            inorder(root.right)
+        inorder(root)
+        return v[k-1]
+		
+Qus 2:https://leetcode.com/problems/validate-binary-search-tree/submissions/
+Sol :
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+import sys
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        global v
+        v=[]
+        def inorder(root):
+            global v
+            if(root==None):
+                return
+            inorder(root.left)
+            v.append(root.val)
+            inorder(root.right)
+        inorder(root)
+        print v
+        return(v==sorted(list(set(v))))
+            
+    
+        
+#         if(root==None):
+#             return True
+#         low=-sys.maxsize
+#         up=sys.maxsize
+#         stack=[(root,low,up)]
+#         flag=True
+#         while(stack!=[] and flag!=False):
+#             node,low,up=stack.pop()
+            
+#             if(node==None):
+#                 continue
+#             val=node.val
+#             print low,up,val
+#             if(val>=up or val<=low):
+#                 flag=False
+#                 continue
+#             stack.append((node.right,val,up))
+#             stack.append((node.left,low,val))
+            
+#         return flag
+
+Qus 3:https://leetcode.com/problems/symmetric-tree/submissions/
+SOl:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if(not root):
+            return True
+        def ismirror(rootleft,rootright):
+            
+            
+            if(rootleft !=None and  rootright!=None):
+                
+                return rootleft.val==rootright.val and ismirror(rootleft.left,rootright.right) and ismirror(rootleft.right,rootright.left)
+            
+            elif(rootleft==None and rootright==None):
+                return True
+            else:
+                return False
+        
+            
+        
+        
+        
+        return ismirror(root.left,root.right)
+
+
+
+Qus 4:https://leetcode.com/problems/maximum-width-of-binary-tree/submissions/
+Sol:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+import sys
+class Solution(object):
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if(root==None):
+            return 0
+        global width
+        width=1
+        global levels
+        levels=[]#this arry will maintain [l,r] min left and max right in the current level
+        for i in range(10000):
+            levels.append([sys.maxsize,0])
+            
+        def calc_width(level,left,right):
+            global width
+            global levels
+            #print level
+            if(left>sys.maxsize and levels[level][0]==sys.maxsize ):
+                levels[level][0]=left
+                
+                
+            l=min(levels[level][0],left)
+            if(left<levels[level][0]):
+                levels[level][0]=left
+            if(right>levels[level][1]):
+                levels[level][1]=right
+
+            # print levels
+            width=max(width,levels[level][1]-levels[level][0]+1)
+
+        def bfs(root):
+           
+            stack=[]
+            #second argument is pos
+            stack.append((root,1,1))
+            while(stack!=[]):
+                node,level,pos=stack.pop()
+                
+                #put your logic here
+                if(node.left and node.right):
+                    # print pos*2, pos*2+1,level
+                    calc_width(level+1,pos*2,pos*2+1)
+                elif(node.left ):
+                    # print "left pos ",pos*2 ,level
+                    calc_width(level+1,pos*2,pos*2)
+                elif(node.right):
+                    # print "right pos ",pos*2+1 ,level
+                    calc_width(level+1,pos*2+1,pos*2+1)
+                #insert both child node inside stack 
+                if(node.left):
+                    stack.append((node.left,level+1,pos*2))
+                if(node.right):
+                    stack.append((node.right,level+1,pos*2+1))
+                # print stack
+        #complexity O(n)
+        bfs(root)
+        
+      
+        return width
+		
+		
+Qus 5: construct a BST inser serch
+Sol : deletion should be implemented
+class TreeNode(object):
+    def __init__(self,x):
+        self.key=x
+        self.payload=None
+        self.left=None
+        self.right=None
+        self.parent=None
+    
+class BinaryTree(object):
+    def __init__(self,root):
+        self.root=root
+    
+    def printTreeNode(self,root):
+        if(root==None):
+            return
+        self.printTreeNode(root.left)
+        print root.key
+        self.printTreeNode(root.right)
+        
+    def InsertVal(self,root,val):
+        
+        
+        if(val<root.key):
+            #move left
+            if(root.left==None):
+                root.left=TreeNode(val)
+            else:
+                self.InsertVal(root.left,val)
+        else:
+            #move right
+            if(root.right==None):
+                root.right=TreeNode(val)
+            else:
+                self.InsertVal(root.right,val)
+                
+a=map(int,raw_input().split())
+
+if(len(a)==0):
+    pass
+else:
+    root=TreeNode(a[0])
+
+obj=BinaryTree(root)
+for nodeVal in range(1,len(a)):
+    obj.InsertVal(obj.root,a[nodeVal])
+
+obj.printTreeNode(root)
+
+
+Qus 6:Construct a heap ,insert and delete
+Sol : deletion should be  modify
+print "enter array "
+a=map(int,raw_input().split())
+heap=[0]
+def build_heap(heap,x):
+    pos=len(heap)
+    heap.append(x)
+    while(pos>0):
+        if(pos/2>0 and heap[pos/2]>heap[pos]):
+            heap[pos/2],heap[pos]=heap[pos],heap[pos/2]
+        else:
+            break
+        pos=pos/2
+def heapify(heap):
+    i=1
+    while(i<len(heap)):
+        flag=False
+        if(i*2 < len(heap) and heap[i*2]<heap[i]):
+            heap[i*2],heap[i]=heap[i],heap[i*2]
+            i=i*2
+            flag=True
+        if(i*2+1<len(heap) and heap[i*2+1]<heap[i]):
+            heap[i*2+1],heap[i]=heap[i],heap[i*2+1]
+            i=i*2+1
+            flag=True
+        if(not flag):
+            break
+        #print heap
+        
+
+def remove_min(heap):
+    min1=heap[1]
+    heap[1]=heap[-1]
+    
+    heap.pop()
+    #print heap
+    heapify(heap)
+
+for x in a:
+    build_heap(heap,x)
+print heap
+remove_min(heap)          
+print heap
+

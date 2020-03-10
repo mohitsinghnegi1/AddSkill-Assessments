@@ -235,6 +235,9 @@ https://leetcode.com/problems/insert-interval/submissions/  bahut accha concept 
 https://leetcode.com/problems/merge-k-sorted-lists/  bahut hard-exciting using heapq
 https://leetcode.com/problems/lru-cache/  vv imp using defaultDict , Doubly linked list and hashmap(nee to implement)
 https://leetcode.com/problems/find-all-anagrams-in-a-string/submissions/  nice solution 
+https://leetcode.com/problems/maximum-width-of-binary-tree/ vvv imp hard one 
+https://leetcode.com/problems/matrix-cells-in-distance-order/ 3 ways nice one
+https://leetcode.com/problems/car-fleet/submissions/  good one
 -------
 v v imp Thus a connected graph of n vertices and (n-1) edges cannot have a circuit
 
@@ -921,3 +924,7 @@ print foo("aabbbacda")
 
 Note---------------------------
 With an array, [a, b] is not the same as [b, a]. But with a set, (a, b) is the same as (b, a).
+
+
+---sort two array on the same time ---
+cars = sorted(zip(position, speed))
