@@ -238,6 +238,7 @@ https://leetcode.com/problems/find-all-anagrams-in-a-string/submissions/  nice s
 https://leetcode.com/problems/maximum-width-of-binary-tree/ vvv imp hard one 
 https://leetcode.com/problems/matrix-cells-in-distance-order/ 3 ways nice one
 https://leetcode.com/problems/car-fleet/submissions/  good one
+https://leetcode.com/problems/redundant-connection/  please see video in solution -new disjoint union algorithm  v v imp used in kruskal algorithm in creating minimum spanning tree
 -------
 v v imp Thus a connected graph of n vertices and (n-1) edges cannot have a circuit
 

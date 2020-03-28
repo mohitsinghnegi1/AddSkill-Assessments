@@ -1,0 +1,191 @@
+#hackathone question 
+Qus : https://www.hackerrank.com/contests/addskill-contest-2/challenges/simple-text-editor
+Sol:
+stack = ['']
+n=int(input())
+str1 = ''
+for i in range(n):
+    a=raw_input().split()
+    
+
+    if(a[0]=='1'):
+        top=stack[-1]
+        stack.append(top+a[1])
+    elif(a[0]=='2'):
+        top=stack[-1]
+        stack.append(top[:-int(a[1])])
+    elif(a[0]=='3'):
+        top=stack[-1]
+        print top[int(a[1])-1]
+    elif(a[0]=='4'):
+        stack.pop()
+Qus 2:https://www.hackerrank.com/contests/addskill-contest-1/challenges/equal-stacks
+Sol
+#!/bin/python
+
+from __future__ import print_function
+
+import os
+import sys
+
+#
+# Complete the equalStacks function below.
+#
+def equalStacks(h1, h2, h3):
+    #
+    # Write your code here.
+    #
+    if(h1==[] or h2==[] or h3==[]):
+        return 0
+    a,b,c=[0]*len(h1),[0]*len(h2),[0]*len(h3)
+    a[-1]=h1[-1]
+    b[-1]=h2[-1]
+    c[-1]=h3[-1]
+    for i in range(len(h1)-2,-1,-1):
+        a[i]=a[i+1]+h1[i]
+    for i in range(len(h2)-2,-1,-1):
+        b[i]=b[i+1]+h2[i]
+    for i in range(len(h3)-2,-1,-1):
+        c[i]=c[i+1]+h3[i]
+    s=set()
+    for i in a:
+        s.add(i)
+    s=s.intersection(b)
+    s=s.intersection(c)
+    if(len(s)==0):
+        return 0
+    else:
+        return max(s)
+Qus 3:https://www.hackerrank.com/contests/addskill-contest-1/challenges/gridland-metro/submissions/code/1321835168
+Sol:
+def gridlandMetro(n, m, k, track):
+    
+    if(m==0 or n==0 ):
+        return 0
+    if(k==0):
+        return m*n
+    count=m*n;
+    d={};
+    for i in track:
+        if i[0] not in d:
+            d[i[0]]=[i[1],i[2]];
+        else:
+            if(max(d[i[0]])<i[1]):
+                count+=(i[1]-max(d[i[0]])-1)
+            if(min(d[i[0]])>i[2]):
+                count+=(min(d[i[0]])-i[2]-1)
+            d[i[0]].extend([i[1],i[2]]);
+    for i in d:
+
+        count -=(max(d[i])-min(d[i]))+1;
+        
+    return count if count > 0 else 0;
+
+Qu 4:https://www.hackerrank.com/contests/addskill-contest-1/challenges/sherlock-and-array/submissions/code/1321823564
+Sol:
+def balancedSums(arr):
+    pre=[0]*len(arr)
+    post=[0]*len(arr)
+    pre[0]=arr[0]
+    post[-1]=arr[-1]
+    for i in range(1,len(arr)):
+        pre[i]=pre[i-1]+arr[i]
+    for i in range(len(arr)-2,-1,-1):
+        post[i]=post[i+1]+arr[i]
+    print pre,post
+    for i in range(len(arr)):
+        if(pre[i]==post[i]):
+            return "YES"
+    return "NO"
+
+Qus5:https://www.hackerrank.com/contests/addskill-contest-1/challenges/fraudulent-activity-notifications
+Sol:need optimal solution
+import bisect
+# Complete the activityNotifications function below.
+def activityNotifications(expenditure, d):
+    def getMedian(a,d):
+        if(d%2==0):
+            return ((a[d/2]+a[d/2+1])+0.0)/2.0
+        else:
+            return a[d/2]
+        
+    
+    def willNotify(cur,i,expenditure):
+        if(expenditure[i]>=2*getMedian(cur,d)):
+            print getMedian(cur,d)
+            return 1
+        return 0
+        
+    
+    
+    
+    notification=0
+    cur=[]
+    for i in range(len(expenditure)):
+        if(i<d):
+            bisect.insort_left(cur,expenditure[i])
+        else:
+            ans=willNotify(cur,i,expenditure)
+            if(ans==1):
+                print cur,i
+            notification+=ans
+            bisect.insort_left(cur,expenditure[i])
+            cur.remove(expenditure[i-d])
+    return notification
+
+Qus :https://www.hackerrank.com/contests/addskill-contest-1/challenges/sherlock-and-anagrams
+Sol:Pending
+
+
+
+
+
+
+Qus 6:
+Sol:
+class Solution(object):
+    def isValidSerialization(self, preorder):
+        """
+        :type preorder: str
+        :rtype: bool
+        """
+        preorder=preorder.split(',')
+        #print preorder
+        valid=1
+        for i in range(0,len(preorder),1):
+            valid-=1
+           
+            if(preorder[i]=='#' and valid==0 and i<len(preorder)-1):
+                return False
+            if(preorder[i]!='#'):
+                valid+=2
+        return valid==0
+
+        #sol O(n) space O(n) time complexity
+#         preorder=preorder.split(',')
+#         c=preorder.count('#')
+        
+#         if(c>len(preorder)-c ):
+
+#             # only '#' is still a vaild case
+#             valid=1
+#             for i in range(len(preorder)):
+
+#                 valid-=1
+                  #visiting node reduces 1 choice out of current choices
+#                 #incase there are more node to be visited and 
+#                 #we have no more choice to add so we return false
+#                 if(preorder[i]=='#' and valid==0 and i<len(preorder)-1):
+#                     return False
+                    
+#                 if(preorder[i]!="#"):
+                      #after visiting every node which is not null we get 2 more choices 
+#                     valid+=2                
+#             if(valid==0):
+#                 return True
+#         else:
+#             return False
+
+Qus 7:
+Sol:
+

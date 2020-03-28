@@ -601,7 +601,63 @@ class Solution(object):
         return head1.next
             
         
+ Qus 17:https://leetcode.com/problems/exclusive-time-of-functions/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    def exclusiveTime(self, n, logs):
+        """
+        :type n: int
+        :type logs: List[str]
+        :rtype: List[int]
+        """
+        if(logs==[]):
+            return []
+        #try to visualize it first small line which is equal to diff which will be substracted #from it parent
+        logs=[ [int(i.split(":")[0]),i.split(":")[1],int(i.split(":")[2])] for i in logs]
+        stack=[]
+        ans=[0]*n
+        
+        for log in logs:
+            id1,state,time=log
+            #print id1,state,time
+            if(state=="start"):
+                stack.append([id1,time])
+            else:
+                pid,ptime=stack.pop()
+                delta=time-ptime+1
+                ans[pid]+=delta
+                #print stack
+                if(stack!=[]):
+                    ans[stack[-1][0]]-=delta
+        return ans
             
+        
+            
+ Qus 18:https://leetcode.com/problems/middle-of-the-linked-list/submissions/
+ Sol:
+ # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def middleNode(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        
+        slow=head
+        fast=head
+        while(fast!=None and fast.next!=None):
+            slow=slow.next
+            fast=fast.next.next
+            
+        return slow
+
+
  
         
         

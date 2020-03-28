@@ -300,5 +300,170 @@ class Solution(object):
             
             
             
- Qus 10:
+ Qus 10:https://leetcode.com/problems/brick-wall/submissions/
  Sol:
+ from collections import defaultdict
+import sys
+class Solution(object):
+    def leastBricks(self, wall):
+        """
+        :type wall: List[List[int]]
+        :rtype: int
+        """
+        #sol1 memory error
+        if(len(wall)==0):
+            return 0
+        a=[0]*(sum(wall[0]))
+        #a=[0]*(sum(wall[0])%1200000)
+        for i in wall:
+            s=0
+            for j in i[:len(i)-1]:
+                s+=j
+                #a[s%1200000]-=1
+                a[s]-=1
+        #print a
+        #print len(wall)+min(a[1:len(a)-1])
+        return len(wall)+min(a) 
+                
+		#sol 2
+		if(len(wall)==0):
+				return 0
+			d=defaultdict(int)
+			#a=[0]*(sum(wall[0])%1200000)
+			for i in wall:
+				s=0
+				for j in i[:len(i)-1]:
+					s+=j
+					#a[s%1200000]-=1
+					d[s]-=1
+			#print a
+			#print len(wall)+min(a[1:len(a)-1])
+			min1=0
+			for i in d:
+				min1=min(min1,d[i])
+			return len(wall)+min1        
+                    
+        
+                
+Qus 11:https://leetcode.com/problems/daily-temperatures/submissions/
+Sol:
+import sys
+class Solution(object):
+    def dailyTemperatures(self, T):
+        """
+        :type T: List[int]
+        :rtype: List[int]
+        """
+        a=[0]*101
+        out=[0]*len(T)
+        for i in range(len(T)-1,-1,-1):
+            a[T[i]]=i
+            min1=sys.maxsize
+            #start from the current temperature 
+            for j in range(T[i]+1,len(a)):
+                if(a[j]>0):
+                
+                    if(a[j]-i)<min1:
+                        min1=a[j]-i
+                        #print min1,i,a[j]
+            #print min1
+            if(min1!=sys.maxsize):
+                out[i]=min1
+                    
+        #print a  
+        return out
+
+        # bruteforce sol
+#         ans=[]
+#         for i in range(len(T)):
+#             day=0
+#             j=i+1
+#             while(j<len(T) ):
+#                 day+=1
+#                 if(T[j]>T[i]):
+#                     break
+#                 j+=1    
+                
+#             else:
+#                 day=0
+#             ans.append(day)
+#         return ans
+          
+           
+Qus 12:https://leetcode.com/problems/alphabet-board-path/
+Sol:
+# just use a map or dictionary store all the positon like map[<char>]=(x,y) ie  map['a']=(0,0) ...map['z']=(0,5)  . then use this formula to calculate the steps (x2-x1)+(y2-y1) where (x1,y1) is current position and (x2,y2) is the position of next char . always follow the following conditions (these conditions will always lead to a valid move) .1. following two constraints is because if we take z position into consideration .if we want to move to upper right position then we can take path up then right.  and if we are on above right position (x=1,y=4) then we need to move left first then down to reach to z position
+#2. always keep in mind that we need to move up first then left or right
+#3. always keep in mind that we need to move left then move the bottom (edited) 
+
+class Solution(object):
+    def alphabetBoardPath(self, target):
+        """
+        :type target: str
+        :rtype: str
+        """
+        #go up first then right
+        d={}
+        k=97
+        for i in range(5):
+            for j in range(5):
+                d[chr(k)]=(j,i)
+                k+=1
+        d['z']=(0,5)
+        x1,y1=(0,0)
+        def p(x1,y1,x2,y2):
+            global s
+            if(y1<y2):
+                #need to move downward
+                if(x1<x2):
+                    #need to move right
+                    while(x1!=x2):
+                        x1+=1
+                        s+="R"
+                    while(y1!=y2):
+                        y1+=1
+                        s+="D"
+                        
+                    s+="!"
+                    
+                else:
+                    #need to move left or same
+                    #first move left then downward
+                    while(x1!=x2):
+                        x1-=1
+                        s+="L"
+                    while(y1!=y2):
+                        y1+=1
+                        s+="D"
+                        
+                    s+="!"
+            else:
+                #need to move upward or same
+                if(x1<x2):
+                    #need to move right
+                    while(y1!=y2):
+                        y1-=1
+                        s+="U"
+                    while(x1!=x2):
+                        x1+=1
+                        s+="R"
+                    s+="!"
+                else:
+                    #need to move left or same
+                    while(y1!=y2):
+                        y1-=1
+                        s+="U"
+                    while(x1!=x2):
+                        x1-=1
+                        s+="L"
+ 
+                    s+="!"
+
+        global s
+        s=""  
+        for i in target:
+            #ex,ey=(2,1)
+            x2,y2=d[i]
+            p(x1,y1,x2,y2)
+            x1,y1=x2,y2
+        return s                

@@ -280,3 +280,220 @@ print heap
 remove_min(heap)          
 print heap
 
+Qus 7:https://leetcode.com/problems/path-sum/submissions/
+Sol :
+
+
+class Solution(object):
+    def hasPathSum(self, root, sum):
+
+        global flag
+        
+        flag=False
+        #remember leaf node is a node have both child null
+        def has(root,sum,cursum):
+            if(root==None):
+                return
+            global flag
+            if(not flag):
+                cursum+=root.val
+                if(root.left==None and root.right==None):
+                    if(cursum==sum):
+                        flag=True
+                    return 
+
+                has(root.left,sum,cursum)
+                has(root.right,sum,cursum)
+        
+        has(root,sum,0)
+        return flag
+
+Qus 8:https://leetcode.com/problems/sum-root-to-leaf-numbers/submissions/
+Sol:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def sumNumbers(self, root):
+        
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if(root==None):
+            return 0
+        global sum1
+        sum1=0
+        
+        def sumNum(root,total):
+            global sum1
+            if(root.left==None and root.right==None):
+                sum1+=total
+            if(root.left):
+                sumNum(root.left,total*10+root.left.val)
+                
+            if(root.right):
+                sumNum(root.right,total*10+root.right.val)
+            
+            
+        sumNum(root,root.val)
+        return sum1
+		
+Qus 9:https://leetcode.com/problems/binary-search-tree-iterator/submissions/
+Sol:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class BSTIterator(object):
+
+    def __init__(self, root):
+        """
+        :type root: TreeNode
+        """
+    
+        self.a=[]
+        def inorder(root,a):
+            if(root==None):
+                return
+            inorder(root.left,a)
+            a.append(root.val)
+            inorder(root.right,a)
+            
+        inorder(root,self.a)
+        self.ptr=0
+        
+    def next(self):
+        """
+        @return the next smallest number
+        :rtype: int
+        """
+        #find predecissor and return
+        n= self.a[self.ptr]
+        self.ptr+=1
+        return n
+        
+
+    def hasNext(self):
+        """
+        @return whether we have a next smallest number
+        :rtype: bool
+        """
+        if(self.ptr < len(self.a)):
+            return True
+        return False
+
+
+# Your BSTIterator object will be instantiated and called as such:
+# obj = BSTIterator(root)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()
+
+Qus 10:https://leetcode.com/problems/find-median-from-data-stream/solution/
+Sol:
+import bisect
+class MedianFinder(object):
+
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.a=[]
+
+    def addNum(self, num):
+        """
+        :type num: int
+        :rtype: None
+        """
+        a=bisect.insort(self.a,num)
+        #print self.a
+        
+
+    def findMedian(self):
+        """
+        :rtype: float
+        """
+        
+        if(len(self.a)==0):
+            return 0
+        if(len(self.a)%2==1):
+            return self.a[len(self.a)/2]
+        else:
+            return ((self.a[len(self.a)/2]+self.a[len(self.a)/2-1])+0.0)/2.0
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()
+
+---
+#sol2 using heap see leetcode solution
+
+import bisect
+import heapq
+class MedianFinder(object):
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+		#always maintain two sorted half having almost equal number of element(max heap might contain 1 extra elemnt in case there are odd number of elemnt) of an array while inserting 
+        self.minheap=[]#min heap will be used to contain all 2nd half(having all elemnt greater then lower half of an array)
+        self.maxheap=[]#max heap will contain lower half of an array 
+        heapq.heapify(self.minheap)
+        heapq.heapify(self.maxheap)
+        self.n=0
+
+    def addNum(self, num):
+        """
+        :type num: int
+        :rtype: None
+        """
+		#while inserting element into maxHeap check if  num (elemnt that we need to insert) is greater then root elemnt of min heap then 
+		#pop root elemnt of min heap and insert into max heap and insert num into min heap (since we need to maintain equal number of elemnt in both heap and also min heap have all larger elements)
+		#else insert num into maxHeap
+		
+		#while inserting element into minHeap check if  num (elemnt that we need to insert) is smaller then root elemnt of max heap then 
+		#pop root elemnt of max heap and insert into min heap and insert num into max heap (since we need to maintain equal number of elemnt in both heap and also min heap have all larger elements)
+		#else insert num into minHeap 
+		
+        if(self.n%2==0):
+            if(self.minheap):
+                if(num<self.minheap[0]):
+                    heapq.heappush(self.maxheap,-num)
+                else:
+                    heapq.heappush(self.maxheap,-heapq.heappop(self.minheap))
+                    heapq.heappush(self.minheap,num)
+            else:
+                heapq.heappush(self.maxheap,-num)
+        else:
+            #we have to insert num in minheap
+            if(num>-self.maxheap[0]):
+                    heapq.heappush(self.minheap,num)
+            else:
+                heapq.heappush(self.minheap,-heapq.heappop(self.maxheap))
+                heapq.heappush(self.maxheap,-num)
+            
+
+        self.n+=1
+
+    def findMedian(self):
+        """
+        :rtype: float
+        """
+        if(self.n==0):
+            return 0
+        #if there are odd number of elemnt then root of max will be the median
+		#if there are even number of elemnt then (root of maxheap+root of minheap)/2 will be the solution
+        if(self.n%2==1):
+            return -self.maxheap[0]
+        else:
+            return ((-self.maxheap[0]+self.minheap[0])+0.0)/2.0
+

@@ -1,0 +1,689 @@
+
+
+Qus 1: Implement directed or indirected graph with weight or not and add edges 
+Sol: complete it
+from collections import defaultdict
+class graph(object):
+    def __init__(self,directed,weighted):
+        self.weighted=weighted
+        self.directed=directed
+        self.graph=defaultdict(list)
+    def addEdge(self,node1,node2):
+        self.graph[node1].append(node2)
+        if self.graph.get(node2,None)==None:
+            self.graph[node2]=[]
+            
+        if not self.directed:
+            self.graph[node2].append(node1)
+            
+    def printGraph(self):
+        print self.graph
+        
+    def dfs(self,root):
+        
+        stack=[]
+        stack.append(root)
+        v=set()
+        v.add(root)
+        
+        while stack:
+            node=stack.pop()
+            
+            print node,
+            for i in self.graph[node]:
+                if(i not in v):
+                    stack.append(i)
+                    v.add(i)
+     
+        print 
+
+    def bfs(self,root):
+        queue=[]
+        queue.append(root)
+        v=set()
+        v.add(root)
+        
+        while queue:
+            node=queue.pop(0)
+            
+            print node,
+            for i in self.graph[node]:
+                if(i not in v):
+                    queue.append(i)
+                    v.add(i)
+                    
+                    
+        print
+    
+obj=graph(directed=True,weighted=False)
+obj.addEdge('1','2')
+obj.addEdge('1','3')
+obj.addEdge('4','5')
+obj.addEdge('2','3')
+obj.addEdge('3','4')
+print "--dfs--"
+obj.dfs('1')
+print "--bfs--"
+obj.bfs('1')
+
+obj.printGraph()
+
+
+
+Qus 2:https://leetcode.com/problems/course-schedule/submissions/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    
+    
+    def canFinish(self, n, p):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        ideg=defaultdict(list)
+        odeg=defaultdict(list)
+        
+        for i in range(n):
+            ideg[i]=set()
+            odeg[i]=set()
+
+        #[[1,0]]   0-->1
+        
+        for i in p:
+            #i=[1,0]
+            ideg[i[0]]=ideg[i[0]].union(set(i[1:]))
+            for j in i[1:]:
+                odeg[j].add(i[0])
+        # print ideg
+        # print odeg
+        # ideg={1:[0],0:[1]}
+        # odeg={1:[0],0:[1]}
+        
+        out=[]
+        stack=[]
+        #--
+        for i in ideg:
+            if(len(ideg[i])==0):
+                stack.append(i)
+        #we don't want to add same elemnt with 0 indegree twice
+        for i in stack:
+            del ideg[i]
+        #--
+        
+        while(stack!=[]):
+            node=stack.pop()
+            out.append(node)
+            for i in odeg[node]:
+                ideg[i].remove(node)
+           
+            for i in ideg:
+                if(len(ideg[i])==0):
+                    stack.append(i)
+            #we dont want to add same elemnt with 0 indegree twice
+            for i in stack:
+                if(ideg.get(i,None)!=None):
+                    del ideg[i]    
+
+        if(len(out)==n):
+            return True
+        else:
+            return False
+
+        #steps to solve these type of questions 
+        #1) insert each elemnt having indegree 0 in a stack
+        #2)while stack !=empty pop elelent 
+         #2.1)append each popped elemnt from the stack to finished list reduce indegree of all its          #childrens
+         #2.2)repeat until list not !=empty
+        
+        #if ot list len !=numCourses it means there are cycle so it means we can not finsh all          #courses
+        #4)
+        
+Qus 3:https://leetcode.com/problems/course-schedule-ii/submissions/
+Sol:checkout/find the dfs solution 
+from collections import defaultdict
+class Solution(object):
+    def findOrder(self, n, p):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: List[int]
+        """
+        
+        g=defaultdict(list)
+        for i in range(0,n):
+            
+            g[i]=[]
+        deg=defaultdict(int)
+        for i in p:
+            deg[i[0]]+=len(i[1:])
+            for j in i[1:]:
+                
+                g[j].append(i[0])
+                
+        #we have calculated graph and degree
+        #nee to find ordering
+        stack=set()
+        
+        for i in g.keys():
+            if(deg[i]==0):
+                stack.add(i)
+                
+        #print stack
+        top=[]
+        while(stack!=set()):
+            node=stack.pop()
+            top.append(node)
+            #print top
+            for i in g[node]:
+                deg[i]-=1
+                if(deg[i]==0 ):
+                    stack.add(i)
+   
+        if(len(top)==n):
+            return top
+        else:
+            return []
+            
+                
+        
+      
+        
+                
+        
+      
+        
+            
+Qus 4:https://leetcode.com/problems/number-of-islands/submissions/
+Sol:
+ class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        k=set(['0','1'])
+        color=2
+        count=0
+        def left(i,j):
+            if(j-1<0):
+                return '0'
+            else:
+                return grid[i][j-1]
+        def right(i,j):
+            if(j+1>=len(grid[0])):
+                return '0'
+            else:
+                return grid[i][j+1]
+        def bottom(i,j):
+            if(i+1>=len(grid)):
+                return '0'
+            else:
+                return grid[i+1][j]
+        def top(i,j):
+            if(i-1<0):
+                return '0'
+            else:
+                return grid[i-1][j]
+        global v
+        v={}
+        
+        def dfs(k,l):
+            global v
+            stack=[]
+            
+            stack.append((k,l))
+            v[(k,l)]=True
+            while(stack):
+                i,j=stack.pop()
+                if(left(i,j)=='1' and v.get((i,j-1),None)==None):
+                    if(j-1>=0):
+                        stack.append((i,j-1))
+                        v[(i,j-1)]=True
+                        grid[i][j-1]='2'
+                if(bottom(i,j)=='1' and v.get((i+1,j),None)==None):
+                    if(i+1<len(grid)):
+                        stack.append((i+1,j))
+                        v[(i+1,j)]=True
+                        grid[i+1][j]='2'
+                if(right(i,j)=='1' and v.get((i,j+1),None)==None):
+                    if(j+1<len(grid[0])):
+                        stack.append((i,j+1))
+                        v[(i,j+1)]=True
+                        grid[i][j+1]='2'
+                if(top(i,j)=='1' and v.get((i-1,j),None)==None):
+                    if(i-1>=0):
+                        stack.append((i-1,j))
+                        v[(i-1,j)]=True
+                        grid[i-1][j]='2'
+            
+        count=0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if(grid[i][j]=='1'):
+                    dfs(i,j)
+                    count+=1
+        return count
+
+ #good solution 
+                   
+ class Solution(object):
+    def dfs(self, grid, r, c):
+        nr = len(grid)
+        nc = len(grid[0])
+        grid[r][c] = '0'
+        if r-1 >= 0 and grid[r-1][c] == '1':
+            self.dfs(grid, r-1, c)
+        if r+1 < nr and grid[r+1][c] == '1':
+            self.dfs(grid, r+1, c)
+        if c-1 >= 0 and grid[r][c-1] == '1':
+            self.dfs(grid, r, c-1)
+        if c+1 < nc and grid[r][c+1] == '1':
+            self.dfs(grid, r, c+1)
+
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        #i --> 0-3
+        #j --> 0-2
+        nr = len(grid)
+        if nr == 0:
+            return 0
+        nc = len(grid[0])
+        islands = 0
+        for r in range(nr):
+            for c in range(nc):
+                if grid[r][c] == '1':
+                    islands += 1
+                    self.dfs(grid, r, c)
+        return islands
+-----
+Qus 5 :https://leetcode.com/problems/redundant-connection/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    def findRedundantConnection(self, edges):
+        """
+        :type edges: List[List[int]]
+        :rtype: List[int]
+        """
+        def find(i,par):
+            while(par[i]>-1):
+                i=par[i]
+            return [i,par[i]]
+        
+        
+            
+        
+        par=[-1]*(len(edges)+1)
+        for i,j in edges:
+            findi=find(i,par)
+            findj=find(j,par)
+            if(findi[0]==findj[0]):
+                return [i,j]
+            else:
+                if(findi[1]>findj[1]):
+                    par[findj[0]]=findi[0]
+                    #this step is path compression next time when we visit this we can directly got to parent in constent time
+                    par[j]=findi[0]
+                    #need to increse rank
+                    par[findi[0]]+=findj[1]
+                else:
+                    par[findi[0]]=findj[0]
+                    
+                    par[i]=findj[0]
+                    #need to increse rank
+                    par[findj[0]]+=findi[1]
+                    
+
+Qus 6 :Kruskal algorithm implementation
+Sol:
+ from collections import defaultdict 
+   
+#This class represents a undirected graph using adjacency list representation 
+class Graph: 
+   
+    def __init__(self,vertices): 
+        self.V= vertices #No. of vertices 
+        self.graph = [] # default dictionary to store graph 
+
+    # function to add an edge to graph 
+    def addEdge(self,u,v,w): 
+        self.graph.append([u,v,w]) 
+
+    def KruskalMST(self,graph):
+        par=[-1]*self.V
+        graph.sort(key=lambda x:x[2])
+        def find(i):
+            while(par[i]>-1):
+                i=par[i]
+            return i
+
+        for i,j,w in graph:
+            findi=find(i)
+            findj=find(j)
+            if(findi==findj):
+                #we will not add this edge
+                pass
+            else:
+                print i,j,w
+                if(par[findi]>par[findj]):
+                    par[findi]+=par[findj]
+                    par[findj]=findi
+                    par[j]=findi
+                    
+                else:
+                    par[findj]+=par[findi]
+                    par[findi]=findj
+                    par[i]=findj
+        
+
+g = Graph(4) 
+g.addEdge(0, 1, 10) 
+g.addEdge(0, 2, 6) 
+g.addEdge(0, 3, 5) 
+g.addEdge(1, 3, 15) 
+g.addEdge(2, 3, 4) 
+  
+g.KruskalMST(g.graph) 
+
+
+Qus 7:https://leetcode.com/problems/friend-circles/submissions/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    def findCircleNum(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: int
+        """
+         circle=0
+        global d
+        d=defaultdict(list)
+        for i in range(1,len(M)+1):
+            for j in range(1,len(M[0])+1):
+                if( M[i-1][j-1]==1):
+                    d[i].append(j)
+        global v
+        v=set()
+        
+        def dfs(i):
+            global d
+            global v
+            
+            stack=[i]
+            v.add(i)
+            while(stack):
+                node=stack.pop()
+                for j in d[node]:
+                    if(j not in v):
+                        stack.append(j)
+                        v.add(j)
+        # print d
+        for i in d:
+            if(i not in v):
+                dfs(i)
+                circle+=1
+            
+        
+        return circle
+
+Qus 8:https://leetcode.com/problems/is-graph-bipartite/
+Sol:
+	#"This is the classic biparite graph problem or two-coloring graph
+#The idea is to discover the nodes using DFS, while discovering, mark all adjacent nodes with the different color to the node's color itself, 
+#if found an adjacent node that is 
+#discovered previously, and has the same color as the current node's, then the graph is not bipartite
+#this is my solution
+class Solution(object):
+    def isBipartite(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: bool
+        """
+        if(len(graph)==0 or len(graph)==1):
+            return True
+        from collections import defaultdict
+        global red
+        global blue
+
+        global visited
+        visited={}
+
+        
+
+        def dfs(root):
+            red={}
+            blue={}
+            global visited
+            stack=[]
+            stack.append([root,"red"])
+           
+            while(stack):
+                node=stack.pop()
+                if(node[0] not in visited):
+                    visited[node[0]]=1
+                    if(node[1]=="red"):
+                        red[node[0]]=1
+                        for i in graph[node[0]]:
+                            stack.append([i,"blue"])
+                    else:
+                        blue[node[0]]=1
+                        for i in graph[node[0]]:
+                            stack.append([i,"red"])
+
+                else:
+                    if(node[1]=="red" and node[0] not in red ):
+                        return False
+                    if(node[1]=='blue' and node[0] not in blue):
+                        return False
+
+            return True
+        for i in range(len(graph)):
+            if(i not in visited and not dfs(i)):
+                return False
+        return True
+		
+-----second solution easy one--
+class Solution(object):
+    def isBipartite(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: bool
+        """
+        if(len(graph)==0 or len(graph)==1):
+            return True
+        v={}
+        color={}
+        for i in range(len(graph)):
+            if(i in v):
+                continue
+            stack=[]
+            stack.append(i)
+            color[i]=1
+            v[i]=1
+            while stack:
+                node=stack.pop()
+               
+                for i in graph[node]:
+                    if(i in v):
+                        if(color[i]==color[node]):
+                            return False
+                    else:
+                        v[i]=1
+                        color[i]=color[node]^1
+                        stack.append(i)
+        return True
+                        
+
+-----------------
+Qus 9:https://leetcode.com/problems/possible-bipartition/submissions/
+Sol :
+class Solution(object):
+    def possibleBipartition(self, N, dislikes):
+        """
+        :type N: int
+        :type dislikes: List[List[int]]
+        :rtype: bool
+        """
+        graph=[[] for i in range(N+1)]
+        for i in dislikes:
+            graph[i[0]].append(i[1])
+            graph[i[1]].append(i[0])
+        print graph
+        
+        v={}
+        color={}
+        for i in range(1,N+1):
+            if(i in v):
+                continue
+            stack=[i]
+            v[i]=1
+            color[i]=1
+            while stack:
+                node=stack.pop()
+                for i in graph[node]:
+                    if(i in v):
+                        if(color[i]==color[node]):
+                            return False
+                    else:
+                        v[i]=1
+                        stack.append(i)
+                        color[i]=color[node]^1
+        return True
+
+Qus 10: dijkastra implementation 
+Sol:
+import heapq
+import sys
+from collections import defaultdict
+class Graph(object):
+    def __init__(self):
+        
+        self.graph=defaultdict(list)
+        #graph={src1:[(dest1,w1),(dest2,w2)],src2:[(dest1,w1),(dest2,w2)]}
+        
+    def printGraph(self):
+        
+        for i in self.graph:
+            print i," --> ",self.graph[i]
+            #1  -->  [(2, 1), (3, 2), (4, 3)]
+            
+    def addEdge(self,u,v,w,directed=False):
+        
+        self.graph[u].append((v,w))
+        
+        #if graph is not directed then below line will execute
+        if(not directed):
+            self.graph[v].append((u,w))
+            
+    def dijkastra(self,src):
+        #this dict will store parent node of cur node it will help to get min path           #from src to this node
+        parent={}
+        #visited will previent its parent to be added to heap again
+        visited={}
+        #dist will store mindist of curent node from src node . initaially all node           #infinity 
+        dist={i:sys.maxsize for i in self.graph}
+        #node =(dist,srcnode,par)
+        node=(0,src,'')
+        
+        heap=[node]
+        #initialize heap
+        heapq.heapify(heap)
+        
+        while(heap!=[] ):
+            cdist,src,par=heapq.heappop(heap)
+            if(src in visited):
+                continue;
+            visited[src]=True
+            dist[src]=cdist
+            parent[src]=par
+            #below line will terminate loop once all elemnt are visited
+            if(len(visited)==len(self.graph)):
+                break
+            #add all child elemnt of cur node with weight equal to cur_weight+weight             #of dest node
+            for dest,w in self.graph[src]:
+                if(dest not in visited):
+                    #we are pushing node with new weight blindly
+                    #as we can not find node in heap and update it
+					if(w+cdist<dist[dest]):
+						heapq.heappush(heap,(w+cdist,dest,src))
+        print "parent arr ",parent
+        print "min distance arr ",dist
+
+obj=Graph()
+
+#create a graph having following edges ie (u,v,weight)
+obj.addEdge(1,2,1)
+obj.addEdge(1,3,2)
+obj.addEdge(1,4,3)
+obj.addEdge(3,4,2)
+obj.addEdge(2,4,1)
+obj.addEdge(4,5,6)
+#print graph()
+obj.printGraph()
+
+#apply dijkastra it will print minimum dist to reach each and every node 
+obj.dijkastra(1)
+
+--------------------------
+
+
+Qus : Primes MST Algorithm 
+Sol:
+from collections import defaultdict
+import sys
+import heapq
+class graph(object):
+    def __init__(self):
+        self.graph=defaultdict(list)
+    def printGraph(self):
+        for i in self.graph:
+            print i," --> ",self.graph[i]
+    def addEdge(self,u,v,w):
+        self.graph[u].append((v,w))
+        self.graph[v].append((u,w))
+        
+    def primsMST(self):
+        parent={}
+        dist={i:sys.maxsize for i in self.graph}
+        
+        node=(0,7,'')
+        
+        visited={}
+        heap=[node]
+        heapq.heapify(heap)
+        while(heap!=[]):
+            w1,src,par=heapq.heappop(heap)
+            if(visited.get(src,False)):
+                continue
+            visited[src]=True
+            print par," --> ",src,
+            parent[src]=(par,w1)
+            
+            if(len(visited)==len(self.graph)):
+                break
+            for dest,w in self.graph[src]:
+                if(visited.get(dest,False)==False):
+                    heapq.heappush(heap,(w,dest,src))
+                    
+        return 
+        
+
+obj=graph()
+obj.addEdge(1,2,2)
+obj.addEdge(1,3,2)
+obj.addEdge(1,4,1)
+obj.addEdge(2,3,2)
+obj.addEdge(4,5,3)
+obj.addEdge(3,5,4)
+obj.addEdge(2,6,1)
+obj.addEdge(6,5,7)
+obj.addEdge(5,7,2)
+obj.printGraph()
+obj.primsMST()
+
+----------------------------------
