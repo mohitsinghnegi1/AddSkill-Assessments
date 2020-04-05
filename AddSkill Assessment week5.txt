@@ -632,7 +632,7 @@ obj.dijkastra(1)
 --------------------------
 
 
-Qus : Primes MST Algorithm 
+Qus 11: Primes MST Algorithm 
 Sol:
 from collections import defaultdict
 import sys
@@ -687,3 +687,353 @@ obj.printGraph()
 obj.primsMST()
 
 ----------------------------------
+
+
+QUS 12:https://leetcode.com/problems/accounts-merge/submissions/
+SOL:
+class Solution(object):
+    def accountsMerge(self, accounts):
+        """
+        :type accounts: List[List[str]]
+        :rtype: List[List[str]]
+        """
+        from collections import defaultdict
+        #graph will contains the email as key and value of each key is a set of 1 or more connected email  
+        graph=defaultdict(set)
+        #em will contain email to name mapping
+        em={}
+        #visited array will be used to check if a given email is visited or not
+        visited={}
+        
+        for i in accounts:
+            for j in i[1:]:
+                graph[i[1]].add(j)
+                graph[j].add(i[1])
+                em[j]=i[0]
+                visited[j]=False
+
+        # print graph
+        # print em
+        
+        def dfs(graph,visited,i,ans,em):
+            stack=[]
+            stack.append(i)
+            o=[em[i]]
+            k=set()
+            while stack:
+                node=stack.pop()
+                visited[node]=True
+                k.add(node)
+                for j in graph[node]:
+                    if(not visited[j]):
+                        stack.append(j)
+            o.extend(list(sorted(k)))
+            ans .append(o)
+            return visited
+
+        
+        ans=[]
+        #we are triversing through each email and make all its connecting emails as visited and pushing it to ans           #array in given format
+        for i in visited:
+            if(not visited[i]):
+                visited=dfs(graph,visited,i,ans,em)
+        return ans
+                
+ -----------------------               
+Qus 13:https://leetcode.com/problems/word-ladder/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        #first we will check if endword is actually present in wordlist or not if           
+		#not return 0
+        if(endWord not in wordList):
+            return(0)
+        d=defaultdict(list)
+        #complexity O(n*m) where n=length of wordlist and m is len of word
+        #this part of code will create intermidate state as key and value as those           
+		#word which are having this intermediate state 
+        for word in wordList:
+            for j in range(len(word)):
+                d[word[:j]+"*"+word[j+1:]].append(word)
+        
+        #print d
+        #this function which do dfs on a start word
+        #each time a node is pop out from a queue using all its intermediate state
+        #we append the words which is associated with those intermediate states
+        #as soon as we find the word which is equal to end word we return the level
+        def dfs(root,end):
+            queue=[(root,1)]
+            visited={}
+            visited[root]=True
+            while queue:
+                #print queue
+                node,level=queue.pop(0)
+                #print node
+                for i in range(len(node)):
+                    for j in d[node[:i]+"*"+node[i+1:]]:
+                        if not visited.get(j,None):
+                            if(j ==end):
+                                return level+1
+                            visited[j]=True
+                            queue.append((j,level+1))
+            return (0)
+        
+        return dfs(beginWord,endWord)
+
+Qus 14:class room qus
+Sol:
+from collections import defaultdict
+#there are some easy wayto solve ths problem under some constraint
+#1) solution is unique
+#2) no dublicate
+#3) need to find indegree 0 then just do bfs
+
+d={"U":"N","G":"A","R":"Y","H":"U","N":"G","A":"R"}
+indeg=defaultdict(list)
+outdeg=defaultdict(list)
+for i in d.keys():
+    indeg[d[i]].append(i)
+    indeg[i]=indeg.get(i,[])
+    outdeg[i].append(d[i])
+    outdeg[d[i]]=outdeg.get(d[i],[])
+print indeg
+print outdeg
+    
+        
+stack=[]
+for i in indeg:
+    if(len(indeg[i])==0):
+        stack.append(i)
+        indeg[i]=[True]
+print stack
+
+out=[]
+while(stack):
+    node=stack.pop()
+    out.append(node)
+    #reduce all its children degree
+    for i in outdeg[node]:
+        
+        indeg[i].remove(node)
+        if len(indeg[i])==0:
+            stack.append(i)
+            indeg[i]=[True]
+    
+       
+print "ans ",out
+
+
+---hackathn contest3 ---https://www.hackerrank.com/contests/addskill-contest-3/challenges
+        
+Qus :https://www.hackerrank.com/contests/addskill-contest-3/challenges/the-power-sum
+Sol:
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the powerSum function below.
+def powSum(X, N,num=1):
+    if(X==0 ):
+        return 1
+    if(X<0 or num>X**(1.0/(2))):
+        return 0
+    return powSum(X,N,num+1)+powSum(X-num**N,N,num+1)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    X = int(raw_input())
+
+    N = int(raw_input())
+
+    result = powSum(X, N)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+Qus :https://www.hackerrank.com/contests/addskill-contest-3/challenges/mark-and-toys
+Sol:
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the maximumToys function below.
+def maximumToys(prices, k):
+    prices.sort()
+    count=0
+    sum1=0
+    for i in prices:
+        if(sum1+i<k):
+            sum1=sum1+i
+            count+=1
+    return count
+        
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = raw_input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    prices = map(int, raw_input().rstrip().split())
+
+    result = maximumToys(prices, k)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+Qus :https://www.hackerrank.com/contests/addskill-contest-3/challenges/array-left-rotation
+Sol:
+ #!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+if __name__ == '__main__':
+    nd = raw_input().split()
+
+    n = int(nd[0])
+
+    d = int(nd[1])
+
+    a = list(map(int, raw_input().rstrip().split()))
+    #print a
+    d=d%n
+    for i in range(d):
+        z=a.pop(0)
+        a.append(z)
+    for i in a:
+        print i,
+    
+    
+Qus :https://www.hackerrank.com/contests/addskill-contest-3/challenges/castle-on-the-grid
+Sol:
+  #!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the minimumMoves function below.
+def minimumMoves(grid, startX, startY, goalX, goalY):
+    if(startX==goalX and startY==goalY):
+        return 0
+    if(len(grid)==1):
+        return 1
+    min1=-1
+    stack=[]
+    stack.append((startX,startY,0))
+    visited={}
+    visited[(startX,startY)]=True
+    
+    while(stack!=[]):
+        y1,x1,d=stack.pop(0)
+        #print y1,x1,d,stack
+        if(y1==goalX and x1==goalY and min1>=d):
+            min1=d
+            
+        for i in range(x1+1,len(grid[0])):
+            if(grid[y1][i]=='X'):
+                break
+            if( (y1,i) not in visited):
+                if(y1==goalX and i==goalY ):
+                    return d+1
+                stack.append((y1,i,d+1))
+                visited[(y1,i)]=True
+            else:
+                break
+            
+        #print "st1 ", stack
+        for i in range(x1-1,-1,-1):
+            if(grid[y1][i]=='X'):
+                break
+            if( (y1,i) not in visited):
+                if(y1==goalX and i==goalY ):
+                    return d+1
+                stack.append((y1,i,d+1))
+                visited[(y1,i)]=True 
+            else:
+                break
+        #print "st2 ", stack
+        for i in range(y1+1,len(grid)):
+            if(grid[i][x1]=='X'):
+                break
+            if((i,x1) not in visited):
+                if(i==goalX and x1==goalY ):
+                    return d+1
+                stack.append((i,x1,d+1))
+                visited[(i,x1)]=True
+            else:
+                break
+        #print "st3 ", stack
+        for i in range(y1-1,-1,-1):
+            if(grid[i][x1]=='X'):
+                break
+            if((i,x1) not in visited):
+                if(i==goalX and x1==goalY ):
+                    return d+1
+                stack.append((i,x1,d+1))
+                visited[(i,x1)]=True
+            else:
+                break
+        #print "st4 ", stack
+    return min1
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(raw_input())
+
+    grid = []
+
+    for _ in xrange(n):
+        grid_item = raw_input()
+        grid.append(grid_item)
+
+    startXStartY = raw_input().split()
+
+    startX = int(startXStartY[0])
+
+    startY = int(startXStartY[1])
+
+    goalX = int(startXStartY[2])
+
+    goalY = int(startXStartY[3])
+
+    result = minimumMoves(grid, startX, startY, goalX, goalY)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+             
+                
+                
+        
+                    

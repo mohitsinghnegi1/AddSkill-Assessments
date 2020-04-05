@@ -1,0 +1,111 @@
+Qus 1: https://www.hackerrank.com/contests/addskill-contest-4/challenges/tree-top-view
+"""
+Node is defined as
+self.left (the left child of the node)
+self.right (the right child of the node)
+self.info (the value of the node)"""
+from collections import defaultdict
+def topView(root):
+
+    #Write your code here
+ 
+    d={}
+    
+    queue=[(root,0)]
+    while(queue):
+        node,dist=queue.pop(0)
+        if(d.get(dist,None)==None):
+            d[dist]=node.info
+            #print d
+        if(node.left):
+            queue.append((node.left,dist-1))
+        if(node.right):
+            queue.append((node.right,dist+1))
+        
+    for i in sorted(d.keys()):
+        print d[i],
+    
+    
+Qus 2:https://www.hackerrank.com/contests/addskill-contest-4/challenges/fibonacci-modified
+Sol:
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the fibonacciModified function below.
+def fibonacciModified(t1, t2, n):
+    if(n==1):
+        return t1
+    if(n==2):
+        return t2
+    for i in range(3,n+1):
+        t3=(t2)**2+t1
+        t1=t2
+        t2=t3
+    return t3
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t1T2n = raw_input().split()
+
+    t1 = int(t1T2n[0])
+
+    t2 = int(t1T2n[1])
+
+    n = int(t1T2n[2])
+
+    result = fibonacciModified(t1, t2, n)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+Qus 3:https://www.hackerrank.com/contests/addskill-contest-4/challenges/jesse-and-cookies
+Sol:
+#!/bin/python
+
+from __future__ import print_function
+
+import os
+import sys
+
+#
+# Complete the cookies function below.
+#
+def cookies(k, A):
+    from heapq import heappop,heappush,heapify
+
+    heapify(A)
+    fC = 0
+    try:
+            while A[0] < k:
+                    fC+=1
+                    c1 = heappop(A)
+                    c2 = heappop(A)
+                    newCookie=(1*c1)+(2*c2)
+                    heappush(A,newCookie)
+            return fC
+    except:
+            return -1
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = raw_input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    A = map(int, raw_input().rstrip().split())
+
+    result = cookies(k, A)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()

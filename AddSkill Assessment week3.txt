@@ -466,4 +466,143 @@ class Solution(object):
             x2,y2=d[i]
             p(x1,y1,x2,y2)
             x1,y1=x2,y2
-        return s                
+        return s               
+
+Qus 13:https://leetcode.com/problems/find-duplicate-file-in-system/solution/
+SOl :
+from collections import defaultdict
+class Solution(object):
+    def findDuplicate(self, paths):
+        """
+        :type paths: List[str]
+        :rtype: List[List[str]]
+        """
+        d=defaultdict(list)
+        for i in paths:
+            arr=i.split()
+            for i in arr[1:]:
+                filename,content=i.split('(')
+                
+                d[content].append(arr[0]+'/'+filename)
+        o=[]
+        for key,val in d.items():
+            if(len(d[key])>1):
+                o.append(val)
+        return o
+            
+            
+Qus 14:https://leetcode.com/problems/subdomain-visit-count/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    def subdomainVisits(self, cpdomains):
+        """
+        :type cpdomains: List[str]
+        :rtype: List[str]
+        """
+        d=defaultdict(int)
+        for i in cpdomains:
+            vcount,domain=i.split()
+            vcount=int(vcount)
+            a=domain.split('.')
+            if(len(a)==2):
+                d[a[0]+"."+a[1]]+=vcount
+                d[a[1]]+=vcount
+            if(len(a)==3):
+                d[a[0]+"."+a[1]+"."+a[2]]+=vcount
+                d[a[1]+"."+a[2]]+=vcount
+                d[a[2]]+=vcount
+        o=[]
+        for key,val in d.items():
+            o.append(str(val)+" "+key)
+        return o
+            
+ Qus 15:https://leetcode.com/problems/verifying-an-alien-dictionary/submissions/
+ Sol:
+ class Solution(object):
+    def isAlienSorted(self, words, order):
+        """
+        :type words: List[str]
+        :type order: str
+        :rtype: bool
+        """
+        order={val:i for i,val in enumerate(order)}
+        print order
+        for i in range(len(words)-1):
+            word1=words[i]
+            word2=words[i+1]
+            for i in range(min(len(word1),len(word2))):
+                if(word1[i]!=word2[i]):
+                    if(order[word1[i]]>order[word2[i]]):
+                        #print "1",word1[i],word2[i]
+                        return False
+                    break
+            else:
+                if(len(word1)>len(word2)):
+                    return False
+            
+            
+        return True
+		
+Qus 16:https://leetcode.com/problems/exam-room/submissions/
+SOl:
+import bisect
+class ExamRoom(object):
+
+    def __init__(self, N):
+        """
+        :type N: int
+        """
+        self.N=N
+        self.students=[]
+        
+
+    def seat(self):
+        """
+        :rtype: int
+        """
+        if(len(self.students)==0):
+            self.students.append(0)
+            return 0
+        else:
+            prev=self.students[0]
+            dist=prev-0
+            loc=0
+            for i,val in enumerate(self.students):
+                if i:
+                    if(val-prev)/2>dist:
+                        dist=(val-prev)/2
+                        loc=dist+prev
+                    
+                    prev=val
+            #print prev
+            if(prev==0):
+                dist=self.N-1
+                loc=self.N-1
+            elif(prev!=self.N-1):
+                if(self.N-1-prev)>dist:
+                    dist=(self.N-1-prev)
+                    loc=self.N-1
+            
+            
+            pos=bisect.bisect_left(self.students,loc) 
+            self.students.insert(pos,loc)
+            #print self.students
+            return loc
+        
+        
+        
+
+    def leave(self, p):
+        """
+        :type p: int
+        :rtype: None
+        """
+        self.students.remove(p)
+        
+
+
+# Your ExamRoom object will be instantiated and called as such:
+# obj = ExamRoom(N)
+# param_1 = obj.seat()
+# obj.leave(p)

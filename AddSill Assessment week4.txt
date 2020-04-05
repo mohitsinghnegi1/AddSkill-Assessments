@@ -497,3 +497,122 @@ class MedianFinder(object):
         else:
             return ((-self.maxheap[0]+self.minheap[0])+0.0)/2.0
 
+
+Qus 13:https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/submissions/
+Sol:
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        def dfs(root):
+            if(root==None):
+                return root
+            queue=[]
+            queue.append((root,0))
+            ans=[]
+            while queue:
+                
+                node,level=queue.pop(0)
+                ans.append((node,level))
+                if(node.left):
+                    queue.append((node.left,level+1))
+                if(node.right):
+                    queue.append((node.right,level+1))
+            root.right==None
+            for i in range(1,len(ans)):
+                if(ans[i-1][1]!=ans[i][1]):
+                    ans[i-1][0].next=None
+                    
+                else:
+                    ans[i-1][0].next=ans[i][0]
+                ans[i][0].next=None
+            return root
+
+        return dfs(root)
+-----
+
+Qus 14:https://leetcode.com/problems/recover-binary-search-tree/submissions/
+Sol:
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def recoverTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        #a array will store reference of binary search tree in inorder way
+        global a
+        a=[]
+        #this function will build array a
+        def inorder(root):
+            global a
+            if(root==None):
+                return 
+            inorder(root.left)
+            a.append(root)
+            inorder(root.right)
+        inorder(root)
+
+        
+        c=sorted(a,key=lambda x:x.val)
+        #print c
+        for i in range(len(c)):
+            if(c[i].val!=a[i].val):
+                    a[i].val,c[i].val=c[i].val,a[i].val
+                    break
+
+----slightly different
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def recoverTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        #a array will store reference of binary search tree in inorder way
+        global a
+        a=[]
+        #this function will build array a
+        def inorder(root):
+            global a
+            if(root==None):
+                return 
+            inorder(root.left)
+            a.append(root)
+            inorder(root.right)
+        inorder(root)
+        #create a new array having only val of a
+        b=[i.val for i in a]
+        #c array is to check the difference
+        c=sorted(b)
+        flag=0
+        #if values are not equal then swap
+        for i in range(len(c)):
+            if(c[i]!=b[i]):
+                
+                a[i].val=c[i]
+					

@@ -1,0 +1,194 @@
+Qus 1:https://leetcode.com/problems/target-sum/
+Sol:
+class Solution(object):
+    def findTargetSumWays(self, nums, target):
+        """
+        :type nums: List[int]
+        :type S: int
+        :rtype: int
+        """
+        if(len(nums)==0):
+            if(target==0):
+                return 1
+            else:
+                return 0
+            
+        p=[0]*len(nums)  
+        p[-1]=nums[-1]
+        
+        for i in range(len(nums)-2,-1,-1):
+            p[i]=p[i+1]+nums[i]
+        global d
+        d={}
+        def solve(nums,i,target,p):
+            
+            if d.get((i,target),None)!=None:
+                return d.get((i,target),None)
+            
+            if(i>=len(nums)-1 and target!=0):
+                d[(i,target)]=0
+                return 0
+            if(i>=len(nums)-1 and target==0):
+                d[(i,target)]=1
+                return 1
+            if(target>p[i+1]):
+                d[(i,target)]=0
+                return 0
+            if (target+p[i+1])<0:
+                d[(i,target)]=0
+                return 0
+            
+            
+            else:
+                d[(i,target)]=solve(nums,i+1,target-nums[i+1],p)+solve(nums,i+1,target+nums[i+1],p)
+                return d[(i,target)]
+        
+        i=0
+        
+        
+        return solve(nums,i,target-nums[i],p)+solve(nums,i,target+nums[i],p)
+--------
+        #brute force solution did not worked 79 test cases passed even using prefix sum
+#         if(len(nums)==0):
+#             if(target==0):
+#                 return 1
+#             else:
+#                 return 0
+            
+#         p=[0]*len(nums)  
+#         p[-1]=nums[-1]
+        
+#         for i in range(len(nums)-2,-1,-1):
+#             p[i]=p[i+1]+nums[i]
+            
+#         def solve(nums,i,target,p):
+#             if(i>=len(nums)-1 and target!=0):
+#                 return 0
+#             if(i>=len(nums)-1 and target==0):
+#                 return 1
+#             if(target>p[i+1]):
+#                 return 0
+#             if (target+p[i+1])<0:
+#                 return 0
+            
+            
+#             else:
+#                 return solve(nums,i+1,target-nums[i+1],p)+solve(nums,i+1,target+nums[i+1],p)
+        
+#         i=0
+#         return solve(nums,i,target-nums[i],p)+solve(nums,i,target+nums[i],p)
+        
+		
+Qus 2:https://leetcode.com/problems/maximum-length-of-pair-chain/
+Sol:
+import sys
+class Solution(object):
+    def findLongestChain(self, pairs):
+        """
+        :type pairs: List[List[int]]
+        :rtype: int
+        """
+        pairs.sort(key=lambda x:x[1])
+        k=-sys.maxsize
+        count=0
+        for x,y in pairs:
+            if(x>k):
+                count+=1
+                k=y
+        return count
+
+Qus 3:https://leetcode.com/problems/word-break/
+Sol:
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        def matched(word,s):
+            
+            if(len(word)>len(s)):
+                return False
+            for i in range(len(word)):
+                if(word[i]!=s[i]):
+                    return False
+            return True
+        global memo
+        memo={}
+        #this function will first iterate through each word of dict
+        #it will first check if any of dict word matched fully as a prefix
+        #if matched then it will again check for s[len(word):] into dict 
+        #until complete string is consumed by words in dict
+        #if no such combinations are present then return False
+        #here we used memo to facilitate memorization hence reduce time
+        def wordbreak(s):
+            if(memo.get(s,None)!=None):
+                return memo.get(s)
+            if(s==''):
+                return True
+            
+            for word in wordDict:
+                if matched(word,s):
+                    if( wordbreak(s[len(word):])):
+                        memo[s]=True
+                        return True
+                        
+            memo[s]=False
+            return False
+                
+                
+                
+                
+        return wordbreak(s)
+		
+Qus 4:https://leetcode.com/problems/perfect-squares/
+Sol:
+import math
+import sys
+
+class Solution(object):
+    def numSquares(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        def bfs(n,squares):
+             # 1. get all perfect square candidates
+        # 2. add 0 into queue as start points of BFS
+        # 3. for each node, do BFS for all the square numbers, the first one reach n         #is least count. The step here means popout all round of square numbers once,         #in graph you can image it's going to next layer after try all square numbers
+        # 4. situations:
+        #       1) node + square < n: push into queue
+        #       2) node + square == n: return the cnt of steps
+        #       3) node + square > n: exceed, skip
+            if(n==1):
+                return 1
+            #if a number is itself a perfect square 
+            if(int(n**0.5)*int(n**(0.5))==n):
+                return 1
+            #(sum,level)
+            queue=[(0,0)]
+            
+            while(queue):
+                sum1,level=queue.pop(0)
+                for sqr in squares:
+                    if(sum1+sqr<n):
+                        
+                        queue.append((sum1+sqr,level+1))
+                    elif(sum1+sqr==n):
+                        return level+1
+                    
+
+        squares=[]
+        #insert all squares of a number upto sqrt(n)
+        #since we cant use a number in our ans whose square itself greater then n
+        #i am adding squares in reverse order because it will faster the process
+        
+        for i in range(int(n**0.5)+1,0,-1):
+            squares.append(i**2)
+      
+        return bfs(n,squares)
+----------------
+
+
+
