@@ -615,4 +615,60 @@ class Solution(object):
             if(c[i]!=b[i]):
                 
                 a[i].val=c[i]
-					
+				
+
+Qus 14:https://leetcode.com/problems/vertical-order-traversal-of-a-binary-tree/submissions/
+Sol:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+from collections import defaultdict
+import bisect
+class Solution(object):
+    def verticalTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        #I am using dfs because we need vales soted in left to right 
+        # then top to bottom
+        # if whole position same then sort by val
+        def bfs(root):
+            d=defaultdict(list)
+            queue=[(root,0,0)]
+            while(queue):
+                node,x,y=queue.pop(0)
+                #I am putting values in the dict where key is the x's val and 
+                #and val is first y axis and then val 
+                #this type of storing will help in sorting based on y axis then val
+                bisect.insort(d[x],(y,node.val))
+                #d[x].append((y,node.val))
+                if(node.left):
+                    #I am using y+1 for childen node becuase i want to to sort it in 
+                    # accending order
+                    queue.append((node.left,x-1,y+1))
+                if(node.right):
+                    queue.append((node.right,x+1,y+1))
+                
+            return d
+            
+        d=bfs(root)
+        o=[]
+        #remember first sort it by x then y and then val in case x,y are equal
+        
+        for key in sorted(d.keys()):
+            k=d[key]
+            p=[]
+            
+            for i in k:
+                p.append(i[1])
+            o.append(p)
+        #print o
+        return o
+
+
+-------
+                			

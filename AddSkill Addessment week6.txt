@@ -186,6 +186,201 @@ class Solution(object):
 #         else:
 #             return False
 
-Qus 7:
+Qus 7:https://leetcode.com/problems/maximum-product-of-word-lengths/submissions/
 Sol:
 
+class Solution(object):
+    def maxProduct(self, words):
+        """
+        :type words: List[str]
+        :rtype: int
+        """
+        #sol 4 
+        #95% efficient
+        max1=0
+        d={}
+        for i in range(len(words)):
+            mask=0
+            for j in (set(words[i])):
+                mask|=(1<<(ord(j)-97))
+            d[mask]=max(d.get(mask,0),len(words[i]))
+        for i in d:
+            for j in d:
+                if(i&j==0):
+                    max1=max(max1,d.get(i)*d.get(j))
+
+        return max1
+
+        # 26-bits: store distinct letters
+        #correct solution 
+#         max1=0
+#         v=[0]*len(words)
+#         for i in range(len(words)):
+#             for j in (set(words[i])):
+#                 v[i]|=(1<<(ord(j)-97))
+#             for j in range(i-1,-1,-1):
+#                 if(v[i]&v[j]==0):
+#                     max1=max(max1,len(words[i]*len(words[j])))
+            
+
+#         return max1
+
+        #we dont need to check previus elemnt 
+        #148 test case pases
+#         max1=0
+#         o=[]
+#         for i in set(words):
+#             a=[0]*26
+#             for j in i:
+#                 a[ord(j)-97]=1
+#             o.append(a)
+        
+#         for i in range(len(o)):
+#             for j in range(i+1,len(o)):
+               
+#                 for k,l in zip(o[i],o[j]):
+#                     if(k&l):
+#                         break
+#                 else:
+#                     max1=max(len(words[i])*len(words[j]),max1)
+#         return max1
+                
+        #2nd sol TLE
+        #69 test case passes
+#         max1=0
+#         o=[]
+#         for i in words:
+#             a=[0]*26
+#             for j in i:
+#                 a[ord(j)-97]=1
+#             o.append(a)
+        
+#         for i in range(len(o)):
+#             for j in range(len(o)):
+#                 if(i!=j):
+#                     for k,l in zip(o[i],o[j]):
+#                         if(k&l):
+#                             break
+#                     else:
+#                         max1=max(len(words[i])*len(words[j]),max1)
+#         return max1
+                
+
+        #solution :TLE
+        # max1=0
+        # for i in words:
+        #     for j in words[1+1:]:
+        #         if(i!=j):
+        #             a=set(list(i))
+        #             b=set(list(j))
+        #             #print a,b
+        #             if(a.intersection(b)==set()):
+        #                 max1=max(max1,len(i)*len(j))
+        # return max1
+                        
+Qus 8:https://leetcode.com/problems/product-of-array-except-self/solution/
+Sol: #we can do O(1) space see leetcode solution
+class Solution(object):
+    def productExceptSelf(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+
+        
+       
+        #O(n) space without division
+        if(len(nums)==0):
+            return []
+        if(len(nums)==1):
+            return [0]
+        l=[nums[0]]
+        r=[0]*len(nums)
+        r[-1]=nums[-1]
+        ans=[]
+        for i in range(1,len(nums)):
+            l.append(l[-1]*nums[i])
+        for j in range(len(nums)-2,-1,-1):
+            r[j]=r[j+1]*nums[j]
+        ans.append(r[1])
+        for i in range(1,len(nums)-1):
+            ans.append(l[i-1]*r[i+1])
+        ans.append(l[len(nums)-2])
+            
+        return ans
+		
+Qus 9:https://leetcode.com/problems/next-permutation/
+Sol:
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        if(nums==sorted(nums,reverse=True)):
+            nums.sort()
+            return 
+        def rev(i,nums):
+            stack=[]
+            for j in range(i,len(nums)):
+                stack.append(nums[j])
+            print stack
+            
+            for j in range(i,len(nums)):
+                nums[j]=stack.pop()
+                
+
+
+        def swap(k,nums,j):
+           
+            while(j<len(nums) and nums[j]>nums[k]):
+                j=j+1
+            nums[j-1],nums[k]=nums[k],nums[j-1]
+
+        i=len(nums)-1
+        while(True):
+            if(nums[i-1]<nums[i]):
+                #we need to swap val from the end which is < then val+1 with elemnt                  
+				#which is just greater then val (in right)
+                swap(i-1,nums,i)
+                #becuase we need just greater element 
+                rev(i,nums)
+                break
+            i-=1
+        return 
+ -------
+ 
+ Qus 10:https://leetcode.com/problems/remove-duplicate-letters/submissions/
+ Sol:
+from collections import defaultdict
+class Solution(object):
+    def removeDuplicateLetters(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        #this dict will store all the frequency of char
+        #it will help to keep track how many frequency of char at a given time
+        d=defaultdict(int)
+        for i in s:
+            d[i]+=1
+        out=[]
+        v={}
+        for i in s:
+            d[i]-=1
+            if(v.get(i,None)==None):
+                #remove elemnts until new elemnt greater then every elemnt in front 
+                #if elemnt is already visited then ignore 
+                #i am decrementing d[i] to keep track 
+                #is there any more elemnt with same val
+                while(len(out)>0 and out[-1]>i and d[out[-1]]>0):
+                    el=out.pop()
+                    del v[el]
+                out.append(i)
+                v[i]=True
+            #print out
+            
+        return "".join(out)
+		
+Qus 11:
+Sol:

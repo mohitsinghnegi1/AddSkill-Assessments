@@ -189,6 +189,84 @@ class Solution(object):
       
         return bfs(n,squares)
 ----------------
+Qus 5:https://leetcode.com/problems/longest-palindromic-subsequence/submissions/
+Sol:
+class Solution(object):
+    def longestPalindromeSubseq(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        #sol3 recursion
+        
+        #without memorisation this approach was giving tle 
+        #but using mamorisation the solution got accespted
+        global dp
+        dp={}
+        def longsubsequence(s,i,j):
+            if(dp.get((i,j),None)):
+                return dp[(i,j)]
+            if(j<i ):
+                dp[(i,j)]=0
+                return 0
+            if(i==j):
+                dp[(i,j)]=1
+                return 1
+            if(s[i]==s[j]):
+                dp[(i,j)]=2+longsubsequence(s,i+1,j-1)
+                return dp[(i,j)]
+            else:
+                dp[(i,j)]=max(longsubsequence(s,i+1,j),longsubsequence(s,i,j-1))
+                return dp[(i,j)]
+            
+        return longsubsequence(s,0,len(s)-1)
+    
+        #sol2 dp 
+        # a=[]
+#         for i in range(len(s)):
+#             b=[]
+#             for j in range(len(s)):
+#                 b.append(0)
+#             a.append(b)
+#         #go to tushar roy video
+#         #try to find a pattern
+#         #build your solution 
+        
+#         for gap in range(0,len(s)):
+#             for i in range(len(s)-gap):
+#                 if(gap==0):
+#                     a[i][i-gap]=1
+#                 else:
+#                     if(s[i]==s[i+gap]):
+#                         a[i][i+gap]=a[i+1][i+gap-1]+2
+#                     else:
+#                         a[i][i+gap]=max(a[i+1][i+gap],a[i][i+gap-1])
+#         return a[0][len(s)-1]
+                
 
+        
+        #sol 1 tle
+#         global memo
+#         memo={}
+#         def longpalindrom(s,i,o):
+#             global memo
+#             if(memo.get((i,o))):
+#                 return memo[(i,o)]
+#             if(i>=len(s)):
+#                 for j in range(len(o)/2):
+#                     if(o[j]!=o[-j-1]):
+#                         return 0
+#                 return len(o)
+#             #include exclude
+#             memo[(i,o)]= max(longpalindrom(s,i+1,o+s[i]),longpalindrom(s,i+1,o))
+#             return memo[(i,o)]
+            
+
+#         return longpalindrom(s,0,'')
+            
+Qus 6:
+Sol:
+
+            
 
 

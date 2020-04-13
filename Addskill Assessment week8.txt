@@ -109,3 +109,74 @@ if __name__ == '__main__':
     fptr.write(str(result) + '\n')
 
     fptr.close()
+
+Qus 4:https://leetcode.com/problems/student-attendance-record-i/
+Sol:
+class Solution(object):
+    def checkRecord(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        A=0
+        L=0
+        for i in s:
+            if(i=='A'):
+                A+=1
+                L=0
+                if(A>1):
+                    return False
+            elif(i=="L"):
+                L+=1
+                if(L>2):
+                    return False
+            else:
+                L=0
+        return True
+
+Qus 5:https://leetcode.com/problems/encode-and-decode-tinyurl/submissions/
+Sol:
+import random
+class Codec:
+    def __init__(self):
+        self.d={}
+        self.counter=0
+        self.f={}
+
+    def encode(self, longUrl):
+        """Encodes a URL to a shortened URL.
+        
+        :type longUrl: str
+        :rtype: str
+        """
+        if(self.f.get(longUrl,None)!=None):
+            return f[longUrl]
+        key="http://tinyurl.com/"
+        key+=str(self.counter)
+        self.counter+=1
+        self.f[longUrl]=key
+        self.d[key]=longUrl
+        #print key
+        return key
+            
+            
+            
+        
+
+    def decode(self, shortUrl):
+        """Decodes a shortened URL to its original URL.
+        
+        :type shortUrl: str
+        :rtype: str
+        """
+        return self.d[shortUrl]
+        
+
+# Your Codec object will be instantiated and called as such:
+# codec = Codec()
+# codec.decode(codec.encode(url))
+
+
+
+Qus 6:
+Sol:
