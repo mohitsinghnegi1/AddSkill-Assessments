@@ -671,4 +671,191 @@ class Solution(object):
 
 
 -------
-                			
+Qus 15:https://leetcode.com/problems/number-of-operations-to-make-network-connected/
+Sol:
+from collections import defaultdict
+class Solution(object):
+    def makeConnected(self, n, connections):
+        """
+        :type n: int
+        :type connections: List[List[int]]
+        :rtype: int
+        """
+        #in case if it can't be minimum spanning tree means less then n-1 edges
+        if(len(connections)<n-1):
+            return -1
+        
+        def dfs(graph,i,v):
+            stack=[i]
+            #print graph
+            while(stack):
+                #print stack
+                node=stack.pop()
+                #print node
+                v[node]=True
+                #print graph[]
+                for nei in graph[node]:
+                    
+                    if(not v[nei]):
+                        stack.append(nei)
+            return 
+
+        graph=defaultdict(list)
+        for i in range(n):
+            graph[i]=[]
+        for u,v in connections:
+            graph[u].append(v)
+            graph[v].append(u)
+            
+        v=[False]*n
+        c=0
+        #this code is to find number of discunnected components
+        for i in range(n):
+            if(not v[i]):
+                #print v
+                #print graph
+                c+=1
+                dfs(graph,i,v)
+                
+        #ans is no of disconnected component -1
+        return c-1
+		
+-------
+ 
+Qus 16:https://leetcode.com/problems/house-robber/
+Sol:
+ class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if(len(nums)==0):
+            return 0
+        dp=[0]*(len(nums)+1)
+        dp[1]=nums[0]#nums[i-1]
+        for i in range(2,len(dp)):
+            dp[i]=max(dp[i-1],dp[i-2]+nums[i-1])
+        return dp[-1]
+		
+Qus 17:
+Sol:
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if(len(nums)==0):
+            return 0
+        elif(len(nums)<=2):
+            return max(nums)
+            
+        def rob1(nums):
+        
+            if(len(nums)==0):
+                return 0
+            dp=[0]*(len(nums)+1)
+            dp[1]=nums[0]#nums[i-1]
+            for i in range(2,len(dp)):
+                dp[i]=max(dp[i-1],dp[i-2]+nums[i-1])
+            return dp[-1]
+        return max(rob1(nums[1:]),rob1(nums[:-1]))
+                                
+Qus 18:
+Sol:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def rob(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        #https://www.youtube.com/watch?v=bEZxjZCY618
+        #with memorization(dont repeat same mistake again) make your life easy
+        dp={}
+        def max_loot(root):
+            
+            if(root==None):
+                dp[root]=0
+                return dp[root]
+            if(not dp.get(root.left,None)):
+                
+                dp[root.left]=max_loot(root.left)
+            a=dp[root.left]
+            if(not dp.get(root.right,None)):
+                
+                dp[root.right]=max_loot(root.right)
+            b=dp[root.right]
+            c,d,e,f=0,0,0,0
+            if(root.left):
+                if(not dp.get(root.left.left,None)):
+                    dp[root.left.left]=max_loot(root.left.left)
+                c=dp[root.left.left]
+                
+                if(not dp.get(root.left.right,None)):
+                    dp[root.left.right]=max_loot(root.left.right)
+                d=dp[root.left.right]
+                
+            if(root.right):
+                if(not dp.get(root.right.left,None)):
+                    dp[root.right.left]=max_loot(root.right.left)
+                e=dp[root.right.left]
+                
+                if(not dp.get(root.right.right,None)):
+                    dp[root.right.right]=max_loot(root.right.right)
+            
+                e=dp[root.right.left]
+                f=dp[root.right.right]
+                
+            dp[root]=max(a+b,c+d+e+f+root.val)
+            return dp[root]
+                
+        
+        return max_loot(root)
+		
+Qus 19:https://leetcode.com/problems/distribute-coins-in-binary-tree/submissions/
+Sol:
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+from collections import defaultdict
+class Solution(object):
+    
+    def distributeCoins(self, root):
+        global move
+        move=0
+        def moves(node):
+            #do post order triversal 
+            #moves is always positive whether coins are moving from par to chield or                   
+			#chield to par
+            #so we are maintaining a global moves whic stores sum of all absolte val                   
+			# of left moves and right moves
+            # function is returning number of conins required to balance him + all                     
+			# children
+            global move
+            if(node==None):
+                return 0
+            left_moves=0
+            right_moves=0
+            if(node.left):
+                left_moves=moves(node.left)
+            if(node.right):
+                right_moves=moves(node.right)
+            move+=abs(left_moves)+abs(right_moves)
+            
+            return left_moves+right_moves+node.val-1
+            
+            
+        moves(root)
+        return move
+   
