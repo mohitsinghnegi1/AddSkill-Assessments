@@ -1,0 +1,109 @@
+Qus 1:https://leetcode.com/problems/relative-ranks/submissions/
+Sol:
+class Solution(object):
+    def findRelativeRanks(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[str]
+        """
+        k=sorted(nums,reverse=True)
+        if(len(nums)==0):
+            return []
+        d={}
+        for i in range(1,len(nums)+1):
+            if i==1:
+                d[k[i-1]]="Gold Medal"
+            elif(i==2):
+                d[k[i-1]]="Silver Medal"
+            elif(i==3):
+                d[k[i-1]]="Bronze Medal"
+            else:
+                d[k[i-1]]=str(i)
+        out=[]
+        for i in nums:
+            out.append(d[i])
+        return out
+ 
+ #hackerrank hackathon
+ Qus 2: https://www.hackerrank.com/contests/addskill-contest-6/challenges/coin-change
+ SOl:
+ #!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+global dp
+dp={}
+def getWays(n, c,last):
+    global dp
+    # return number of ways 
+    #last is  for coins denomination 1 2 3 (up to which index)
+    #n is for remaining sum we need to build using coins up to "last" index of coins denomination
+    if(dp.get((n,last),None)!=None):
+        return dp[(n,last)]
+    
+    if(n==0):
+        dp[(n,last)]=1
+        return dp[(n,last)]
+    if(n<0 or last<0):
+        dp[(n,last)]=0
+        return dp[(n,last)]
+    dp[(n,last)]= getWays(n,c,last-1)+getWays(n-c[last],c,last)
+    return dp[(n,last)]
+	
+	
+or alternte solution 
+def change(self, amount, coins):
+        """
+        :type amount: int
+        :type coins: List[int]
+        :rtype: int
+        """
+        dp = [0]*(amount+1)
+        dp[0]=1
+        
+        for coin in coins:
+            for j in range(coin, amount+1):
+                dp[j] = dp[j-coin]+dp[j]
+        return dp[-1]
+
+
+Qus 3: https://www.hackerrank.com/contests/addskill-contest-6/challenges/maximum-element/submissions/code/1323096938
+SoL:
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import heapq
+t=int(input())
+stack=[0]
+max1=0
+for i in range(t):
+    k=map(int,raw_input().split())
+    if(len(k)==2):
+        stack.append(max(k[1],stack[-1]))
+        
+    if(len(k)==1):
+        if(k[0]==2):
+            stack.pop()
+        elif(k[0]==3):
+            print stack[-1]
+
+ 
+ Qus 4: https://www.hackerrank.com/contests/addskill-contest-6/challenges/game-of-thrones
+ Sol :
+ def gameOfThrones(s):
+    d=defaultdict(int)
+    for i in s:
+        d[i]+=1
+    ans=True
+    flag=1
+    for i in d:
+        if(d[i]%2==1):
+            flag+=1
+        if(flag%3==0):
+            return "NO"
+    return "YES"
+        
+
