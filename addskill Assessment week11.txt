@@ -1,0 +1,31 @@
+Qus https://leetcode.com/problems/baseball-game/
+Sol:
+class Solution(object):
+    def calPoints(self, ops):
+        """
+        :type ops: List[str]
+        :rtype: int
+        """
+        i=0
+        stack=[]
+        sum1=0
+        while(i<len(ops)):
+            if(ops[i][0]=='-' or ops[i].isnumeric()):
+                #print ops[i]
+                stack.append(int(ops[i]))
+                sum1+=int(stack[-1])
+            elif(ops[i]=='C' and len(stack)>0):
+                sum1-=int(stack.pop())
+            elif(ops[i]=='D' and len(stack)>0):
+                
+                stack.append(stack[-1]*2)
+                sum1+=stack[-1]
+            elif(ops[i]=='+' and len(stack)>1):
+                if(len(stack)>=2):
+                    stack.append(stack[-1]+stack[-2])
+                    sum1+=stack[-1]
+                
+            i+=1
+        return sum1
+            
+            
