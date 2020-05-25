@@ -657,8 +657,95 @@ class Solution(object):
             
         return slow
 
-
+Qus 19:https://leetcode.com/problems/generate-parentheses/submissions/
+SOl:
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        
+        stack=[]
+        stack.append(('(',1))
+        stack.append((')',1))
+        out=[]
+        while(stack):
+            node,i=stack.pop()
+            if(i<2*n):
+                stack.append((node+')',i+1))
+                stack.append((node+'(',i+1))
+                
+            else:
+                out.append(node)
+                
+                
+        def isValid(p,n):
+            if(p[0]==')'):
+                return False
+            stack=[]
+            stack.append(p[0])
+            i=1
+            while(i<n):
+                if(stack==[] and p[i]==')'):
+                    return False
+                if(p[i]=='('):
+                    stack.append(p[i])
+                else:
+                    stack.pop()
+                i+=1
+            if(stack!=[]):
+                return False
+            return True
  
+        ans=[]
+        for i in out:
+            k=isValid(i,n*2)
+            if(k):
+                ans.append(i)
+                
+            
+        return ans
+		
+---efficient one ----
+            
+ Qus :https://leetcode.com/problems/sort-array-by-parity-ii/submissions/
+ Sol:
+ class Solution(object):
+    def sortArrayByParityII(self, A):
+        """
+        :type A: List[int]
+        :rtype: List[int]
+        """
+        odd=[]
+        even=[]
+        for i in A:
+            if(i%2==0):
+                even.append(i)
+            else:
+                odd.append(i)
+                
+                
+        for i in range(len(A)):
+            if(i%2==0):
+                A[i]=even.pop()
+            else:
+                A[i]=odd.pop()
+        return A
+                
+        
+        j=1
+        
+        for i in range(0,len(A),2):
+            #if for any even position there is some odd element
+            if(A[i]%2):
+                while(j%2):
+                    j+=2
+                A[i],A[j]=A[j],A[i]
+        return A
+                
+        
+            
         
         
         

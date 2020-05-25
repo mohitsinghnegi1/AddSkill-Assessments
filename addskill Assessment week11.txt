@@ -28,4 +28,447 @@ class Solution(object):
             i+=1
         return sum1
             
+Qus 2:https://leetcode.com/problems/my-calendar-i/submissions/
+Sol:
+class MyCalendar(object):
+
+    def __init__(self):
+        self.store=[]
+        
+
+    def book(self, start, end):
+        """
+        :type start: int
+        :type end: int
+        :rtype: bool
+        """
+        i=0
+        while(i<len(self.store)):
+            if(self.store[i][0]>start):
+                break
+            i+=1
+        
+        #we are either at len(i) or at i where self.store[i][0]>start
+        if(len(self.store)==0):
+            self.store.append([start,end])
+        elif(i==0):
+            if(self.store[0][0]<end):
+                return False
+            self.store.insert(i,[start,end])
             
+        
+        elif(i>=len(self.store)):
+            if(self.store[i-1][1]>start):
+                return False
+            self.store.append([start,end])
+        else:
+            if(self.store[i-1][1]>start or self.store[i][0]<end):
+                return False
+            self.store.insert(i,[start,end])
+        return True
+        
+
+
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
+
+
+---little optimised version using bisect
+import bisect
+class MyCalendar(object):
+
+    def __init__(self):
+        self.store=[]
+        
+
+    def book(self, start, end):
+        """
+        :type start: int
+        :type end: int
+        :rtype: bool
+        """
+        i=bisect.bisect_left(self.store,[start,end])
+        # print i
+        # i=0
+        # while(i<len(self.store)):
+        #     if(self.store[i][0]>start):
+        #         break
+        #     i+=1
+        
+        #we are either at len(i) or at i where self.store[i][0]>start
+        if(len(self.store)==0):
+            self.store.append([start,end])
+        elif(i==0):
+            if(self.store[0][0]<end):
+                return False
+            self.store.insert(i,[start,end])
+            
+        
+        elif(i>=len(self.store)):
+            if(self.store[i-1][1]>start):
+                return False
+            self.store.append([start,end])
+        else:
+            if(self.store[i-1][1]>start or self.store[i][0]<end):
+                return False
+            self.store.insert(i,[start,end])
+        return True
+        
+
+
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
+
+Qus 3:https://leetcode.com/problems/number-of-atoms/
+Sol:
+from collections import defaultdict
+class Solution:
+     def countOfAtoms(self, formula):
+        """
+        :type formula: str
+        :rtype: str
+        """
+        #this will map atom name with number of occurance of that atom in a molecule
+        result=defaultdict(int)
+        stack=[1] 
+            #by default we are inserting 1 to handle 1
+        prev=1 
+            #prev denotes the multiplication of all number that is outside the bracket
+        atom=''
+        cur=''
+            #atom veriable will hold atom name and cur will hold number after atom name
+        
+        
+        i=len(formula)-1
+
+        while(i>-1):
+            if(formula[i].isdigit()):
+                cur=formula[i]+cur
+                
+            elif(formula[i]==')'):
+                if(cur!=''):
+                    prev=prev*int(cur)
+                    stack.append(prev)
+                    cur=''
+                
+            elif(formula[i].isalpha() and formula[i].islower() ):
+                atom=formula[i]+atom
+                
+            elif(formula[i].isalpha() and formula[i].isupper() ):
+                atom=formula[i]+atom
+                
+                #now we are done with the name of the atom 
+                #now store that atom in a map or update it if exist 
+                #{name:cur*}
+                
+            
+                if(cur!=''):
+                    result[atom]+=prev*int(cur)
+                    #this is the case like (HO2)2
+                    print "cur",cur,"atom",atom,result[atom]
+                else:
+                    result[atom]+=prev
+                    print result[atom]
+                    #this is the case like (HO)2
+                atom=''
+                cur=''
+                
+            elif(formula[i]=="("):
+                top=stack.pop()
+                print 'top',top,stack
+                prev=stack[-1]
+                #last top elemnt should be prev
+            
+            i-=1
+
+        o=''
+            #this will contain the output
+            
+        for i in sorted(result.keys()):
+            o+=i
+            if(result[i]>1):
+                o+=str(result[i])
+        return o
+                
+          
+
+Qus :https://www.hackerrank.com/contests/addskill-content-9/challenges/journey-to-the-moon/problem
+Sol:
+
+from collections import Counter
+
+def find(a):
+    p = root[a]
+    if p != a:
+        root[a] = find(p)
+    return root[a]
+
+def union(a,b):
+    a = find(a)
+    b = find(b)
+    if a == b:
+        return
+    if rank[a] > rank[b]:
+        root[b] = a
+    else:
+        root[a] = b
+        if rank[a] == rank[b]:
+            rank[b] += 1
+           
+n, m = map(int, raw_input().strip().split())
+rank = [0]*n
+root = [x for x in xrange(n)]
+for x in xrange(m):
+    a, b = map(int, raw_input().strip().split())
+    union(a,b)
+count = Counter()
+for x in xrange(n):
+    count[find(x)] += 1
+ans = 0
+for x in count:
+    v = count[x]
+    ans += v * (n-v)
+print ans / 2
+
+
+Qus :https://www.hackerrank.com/contests/addskill-content-9/challenges/greedy-florist/submissions/code/1323610252
+Sol
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the getMinimumCost function below.
+def getMinimumCost(k, c):
+    c.sort()
+    
+    min_cost=0
+    j=0
+    for i in range(len(c)-1,-1,-1):
+        if((len(c)-1-i)%k==0):
+            j+=1
+        min_cost+=c[i]*j
+        
+    return min_cost
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    nk = raw_input().split()
+
+    n = int(nk[0])
+
+    k = int(nk[1])
+
+    c = map(int, raw_input().rstrip().split())
+
+    minimumCost = getMinimumCost(k, c)
+
+    fptr.write(str(minimumCost) + '\n')
+
+    fptr.close()
+
+        
+Qus :https://www.hackerrank.com/contests/addskill-content-9/challenges/stockmax/submissions/code/1323609706
+Sol:
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'stockmax' function below.
+#
+# The function is expected to return a LONG_INTEGER.
+# The function accepts INTEGER_ARRAY prices as parameter.
+#
+
+def stockmax(prices):
+    # Write your code here
+    if(prices==[]):
+        return 0
+    profit=0
+    max1=prices[-1]
+    for i in range(len(prices)-2,-1,-1):
+        if(prices[i]<=max1):
+            profit+=(max1-prices[i])
+        else:
+            max1=prices[i]
+    return profit
+        
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    t = int(raw_input().strip())
+
+    for t_itr in xrange(t):
+        n = int(raw_input().strip())
+
+        prices = map(int, raw_input().rstrip().split())
+
+        result = stockmax(prices)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+
+Qus : A^x+B^y - see doselect report here -https://doselect.com/reports/hacker?access_code=Sw/vT12Xp2GA0JyVtI/cc%2BNjBqrNQcaZPTNjwXXHHs8WiDJZp4bNcfFnS54SbEzD
+
+Sol :  simply use two for loops
+
+
+Qus : https://leetcode.com/problems/my-calendar-ii/
+Sol:
+import bisect
+class MyCalendarTwo(object):
+
+    def __init__(self):
+        self.calender=[]
+        self.overlap=[]
+        
+
+    def book(self, s2, e2):
+        """
+        :type start: int
+        :type end: int
+        :rtype: bool
+        """
+        # De morgon law
+        #if triple overlapping is there return false
+        #this overlap array contains intersection of double overlapping
+        #we are looping through the array to check where the current rnage           #intersect it
+        
+        for s1,e1 in self.overlap:
+            if(s1<e2 and s2<e1):
+                return False
+            
+        #we are treversing in array which might contains doublet but not             #trplet
+        #it will check if overlap push to overlap array
+        
+        for s1,e1 in self.calender:
+            
+            if(s1<e2 and s2<e1):
+                self.overlap.append((max(s1,s2),min(e1,e2)))
+                
+        #at last we need to add range to calender
+        self.calender.append((s2,e2))  
+        
+        
+        return True
+
+
+# Your MyCalendar object will be instantiated and called as such:
+# obj = MyCalendar()
+# param_1 = obj.book(start,end)
+
+
+----Hackathone contest 10 ---
+Qus: https://www.hackerrank.com/contests/addskill-contest-10/challenges/contacts
+Sol:
+
+from __future__ import print_function
+
+import os
+import sys
+from collections import defaultdict
+
+#
+# Complete the contacts function below.
+#
+def contacts(queries):
+    out=[]
+    contacts=[]
+    d=defaultdict(int)
+   
+    for query in queries:
+        op,name=query
+        
+        
+        if(op=='add'):
+            
+            for i in range(len(name)+1):
+                d[name[:i]]+=1
+        else:
+            
+            out.append(d[name])
+
+    return out
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    queries_rows = int(raw_input())
+
+    queries = []
+
+    for _ in xrange(queries_rows):
+        queries.append(raw_input().rstrip().split())
+
+    result = contacts(queries)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
+	
+	
+Qus : https://www.hackerrank.com/contests/addskill-11/challenges/bigger-is-greater/submissions/code/1323755362
+Sol:
+#!/bin/python
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the biggerIsGreater function below.
+def biggerIsGreater(w):
+    if(len(w)<2):
+        return 'no answer'
+    n=len(w)
+    for i in range(len(w)-1,-1,-1):
+        max=None
+        for j in range(i+1,len(w)):
+            if(max and w[j]>w[i] and w[j]<w[max]):
+                max=j
+                print w[max]
+            elif(w[j]>w[i]):
+                max=j
+                print w[max]
+        if(max!=None ):
+            print "em",i,w[max]
+            w=list(w)
+            w[i],w[max]=w[max],w[i]
+            
+            
+            w=w[:i+1]+sorted(w[i+1:])
+            return "".join(w)
+
+    return 'no answer'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    T = int(raw_input())
+
+    for T_itr in xrange(T):
+        w = raw_input()
+
+        result = biggerIsGreater(w)
+
+        fptr.write(result + '\n')
+
+    fptr.close()
+
+

@@ -674,7 +674,88 @@ class Solution(object):
                 x1,y1=min(x1,x2),max(y1,y2)
         if(flag==False):
             o.append([x1,y1])
-        return o        
+        return o
+
+Qus :https://leetcode.com/problems/merge-k-sorted-lists/
+Sol :
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+import heapq
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if(lists==[]):
+            return ListNode('')
+        ptr=ListNode(0)
+        head=ptr
+        heap=[]
+        heapq.heapify(heap)
+        while(True):
+            k=False#k variable will track that every list is over or not
+            for i in range(len(lists)):
+                if(lists[i]==None):
+                    continue
+                heapq.heappush(heap,lists[i].val)
+                lists[i]=lists[i].next
+                k=True 
+                
+            #if k is Fasle then it means we reached at the end of every lists elemnt
+            if(k==False):
+                break
+        #create a new list by using heap
+        while(heap!=[]):
+            val=heapq.heappop(heap)
+            ptr.next=ListNode(val)
+            ptr=ptr.next
+        return head.next
+
+ Qus :https://leetcode.com/problems/reverse-linked-list/submissions/
+ Sol:
+ # Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+global ptr
+head1=None
+def reverse(ptr):
+    global head1
+    #print ptr
+    if(ptr==None):
+        return ptr
+    if(ptr.next==None):
+        head1=ptr
+        return head1
+    reverse(ptr.next)
+    q=ptr.next
+    q.next=ptr
+    ptr.next=None
+    
+    return head1
+
+class Solution(object):
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        return reverse(head)
+
+        
+        #iterative solution
+#         prev=None
+#         cur=head
+        
+#         while(cur!=None):
+#             nextp=cur.next
+#             cur.next=prev
+#             prev=cur
+#             cur=nextp
+#         head=prev
+#         return head
+            
         
                       
         

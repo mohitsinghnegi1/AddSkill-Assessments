@@ -929,3 +929,8 @@ With an array, [a, b] is not the same as [b, a]. But with a set, (a, b) is the s
 
 ---sort two array on the same time ---
 cars = sorted(zip(position, speed))
+
+
+----wow we can insert array in correct position using insort
+store=[[1,2],[3,4]
+i=bisect.bisect_left(self.store,[start,end])

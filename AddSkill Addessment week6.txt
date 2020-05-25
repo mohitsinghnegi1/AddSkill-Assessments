@@ -382,5 +382,57 @@ class Solution(object):
             
         return "".join(out)
 		
-Qus 11:
+Qus 11:https://leetcode.com/problems/h-index/submissions/
 Sol:
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        
+        citations.sort(reverse=True)
+        #sort so that to reduce complexity 
+        #we need to maximize the h index so reverse in opposite               #direction
+        max1=0
+        for i in range(len(citations)):
+            if(citations[i]>=i+1):
+                #we are tring to maximize the ans such that 
+                #i+1 can be maximized 
+                #using citations[i] mimimum value which satisfied 
+                #i+1<=citations[i]
+                max1=max(max1,i+1)
+                if(i+1>citations[i]):
+                    return max1
+        return max1
+        
+        
+        
+        
+#         if(citations==[]):
+#             return 0
+#         #this is brute force approach
+#         #find max
+#         max1=max(citations)
+#         #for eavery value from max1 to 0 
+#         #we are checking which value is such at there are less or 
+#         #equal no of element which is greaater 
+#         #and greater and equal is grater then or equal to the current         #val
+#         n=0
+#         for i in range(max1,-1,-1):
+#             count=0
+#             eq=0
+#             for val in citations:
+#                 if(val>i):
+#                     count+=1
+#                 elif(val==i):
+#                     eq+=1
+                
+                    
+                    
+#             if(count<=i):
+#                 if(count+eq>=i):
+#                     return i
+#         return 0
+                
+            

@@ -264,9 +264,75 @@ class Solution(object):
 
 #         return longpalindrom(s,0,'')
             
-Qus 6:
+Qus 6:https://docs.google.com/spreadsheets/d/1-f8KcBB6A9uqkKDOXaBawhxQJSSa-JYtYHE-aSQJsgU/edit?ts=5e52244e&pli=1#gid=0
 Sol:
-
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if(len(prices)<2):
+            return 0
+        dp=[[0,0] for i in range(len(prices))]
+        
+		#this dp[0][0] represent day 0 and 0 stock at hand
+		#dp[0][1] it represent day 0 1 stock at hand
+		
+        dp[0][1]=-prices[0]
+        dp[0][0]=0
+        
+        dp[1][1]=max(dp[0][1],dp[0][0]-prices[1])
+        dp[1][0]=max(dp[0][1]+prices[1],dp[0][0])
+        
+        for i in range(2,len(prices)):
+            #buy
+            dp[i][1]=max(dp[i-1][1],dp[i-2][0]-prices[i])
             
+            #sell
+            dp[i][0]=max(dp[i-1][1]+prices[i],dp[i-1][0])
+            
+        return dp[len(prices)-1][0]
+		
+		
+Qus 7:https://leetcode.com/problems/guess-number-higher-or-lower-ii/
+Sol:
+dp={}
+global dp
+def guessWorseCase(l,r):
+    
+    if(l>=r):
+        return 0
+    global dp
+    if(dp.get((l,r),None)!=None):
+        return dp[(l,r)]
+        
+    dp[(l,r)]=sys.maxsize
+    
+    for guess in range(1,r+1):
+    
+        dp[(l,r)]=min(dp[(l,r)],max(guess+guessWorseCase(l,guess-1),guess+guessWorseCase(guess+1,r)))
+
+ 
+    return dp[(l,r)]
+
+class Solution(object):
+    def getMoneyAmount(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        r=n
+        ans=guessWorseCase(1,r)
+        
+        global dp
+        print dp
+        
+        return ans
+            
+
+
+
+
 
 
