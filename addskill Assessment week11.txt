@@ -472,3 +472,42 @@ if __name__ == '__main__':
     fptr.close()
 
 
+Qus :https://leetcode.com/problems/excel-sheet-column-number/
+SOl:
+def chr2num(c):
+    return ord(c)-65+1
+    
+    
+    
+class Solution(object):
+    def titleToNumber(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        mul=0
+        ans=0
+        for i in range(len(s)-1,-1,-1):
+            ans+=chr2num(s[i])*(26**mul)
+            mul+=1
+        return ans
+           
+		   
+Qus:https://leetcode.com/problems/excel-sheet-column-title/
+Sol:
+class Solution(object):
+    def convertToTitle(self, n):
+    
+        """
+        :type n: int
+        :rtype: str
+        """
+        # just like decimal to binary conversion
+        #but in this we are converting decimal to base 26
+        o=""
+        while(n):
+            o+=chr((n-1)%26+65)
+            n=(n-1)/26
+            
+        return o[::-1]
+            
